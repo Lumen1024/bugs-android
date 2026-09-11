@@ -2,9 +2,11 @@ package com.lumen.bugs_android.register
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -33,13 +35,16 @@ import com.lumen.bugs_android.getZodiacFromDate
 @Composable
 fun RegisterForm(modifier: Modifier = Modifier) {
     val name = rememberTextFieldState("")
-    var isDialogOpen by remember { mutableStateOf(false) }
+    var gender by remember { mutableStateOf("Мужчина") }
     var selectedDateMillis by remember { mutableStateOf<Long?>(null) }
-    Column(modifier.fillMaxSize()) {
-        OutlinedTextField(state = name,label={ Text("ФИО") })
-        GenderMenu()
+
+    Column(modifier.fillMaxSize().padding(16.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        OutlinedTextField(state = name,label={ Text("ФИО") },modifier = Modifier.fillMaxWidth())
+        GenderMenu(Modifier.fillMaxWidth(), value = gender, onSelect = {gender = it})
         CourseSelect()
         DifficultySlider()
+
+        var isDialogOpen by remember { mutableStateOf(false) }
         Button(onClick = {isDialogOpen= !isDialogOpen}) {
             Text("Выбрать дату")
         }
