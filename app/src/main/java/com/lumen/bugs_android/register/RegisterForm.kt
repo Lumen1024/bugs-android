@@ -36,13 +36,14 @@ import com.lumen.bugs_android.getZodiacFromDate
 fun RegisterForm(modifier: Modifier = Modifier) {
     val name = rememberTextFieldState("")
     var gender by remember { mutableStateOf("Мужчина") }
+    var difficulty by remember { mutableStateOf("Лёгкая") }
     var selectedDateMillis by remember { mutableStateOf<Long?>(null) }
 
     Column(modifier.fillMaxSize().padding(16.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
         OutlinedTextField(state = name,label={ Text("ФИО") },modifier = Modifier.fillMaxWidth())
         GenderMenu(Modifier.fillMaxWidth(), value = gender, onSelect = {gender = it})
         CourseSelect()
-        DifficultySlider()
+        DifficultySlider(value = difficulty, onSelect = { difficulty = it })
 
         var isDialogOpen by remember { mutableStateOf(false) }
         Button(onClick = {isDialogOpen= !isDialogOpen}) {

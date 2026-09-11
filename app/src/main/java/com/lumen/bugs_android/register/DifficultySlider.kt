@@ -4,25 +4,24 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import kotlin.math.roundToInt
 
 @Composable
-fun DifficultySlider() {
-    val levels = listOf("Лёгкая", "Средняя", "Высокая")
-    var index by remember { mutableIntStateOf(0) }
-    Column {
+fun DifficultySlider(
+    modifier: Modifier = Modifier,
+    levels: List<String> = listOf("Лёгкая", "Средняя", "Высокая"),
+    value: String = "Лёгкая",
+    onSelect: (String) -> Unit = {},
+) {
+    Column(modifier) {
         Text("Уровень сложности")
         Slider(
-            value = index.toFloat(),
-            onValueChange = { index = it.roundToInt() },
-            valueRange = 0f..2f,
-            steps = 1
+            value = levels.indexOf(value).coerceAtLeast(0).toFloat(),
+            onValueChange = { onSelect(levels[it.roundToInt()]) },
+            valueRange = 0f..levels.lastIndex.toFloat(),
+            steps = (levels.size - 2).coerceAtLeast(0)
         )
-        Text(levels[index])
+        Text(value)
     }
 }
