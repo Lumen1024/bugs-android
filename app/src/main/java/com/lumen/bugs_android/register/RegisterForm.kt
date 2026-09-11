@@ -12,8 +12,6 @@ import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.Button
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Slider
@@ -37,42 +35,14 @@ import com.lumen.bugs_android.getZodiacFromDate
 @Composable
 fun RegisterForm(modifier: Modifier = Modifier) {
     val name = rememberTextFieldState("")
-    var expanded by remember { mutableStateOf(false) }
+
     var sliderPosition by remember { mutableFloatStateOf(0f) }
     var isDialogOpen by remember { mutableStateOf(false) }
     var selectedDateMillis by remember { mutableStateOf<Long?>(null) }
     Column(modifier.fillMaxSize()) {
         OutlinedTextField(state = name,label={ Text("ФИО") })
         GenderMenu()
-        Box(
-            modifier = Modifier
-                .padding(16.dp)
-        ) {
-            Button(onClick ={ expanded = !expanded } ) {
-                Text("Курс")
-            }
-            DropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded = false }
-            ) {
-                DropdownMenuItem(
-                    text = { Text("1") },
-                    onClick = { /* Do something... */ }
-                )
-                DropdownMenuItem(
-                    text = { Text("2") },
-                    onClick = { /* Do something... */ }
-                )
-                DropdownMenuItem(
-                    text = { Text("3") },
-                    onClick = { /* Do something... */ }
-                )
-                DropdownMenuItem(
-                    text = { Text("4") },
-                    onClick = { /* Do something... */ }
-                )
-            }
-        }
+        CourseSelect()
         Column {
             Slider(
                 value = sliderPosition,
