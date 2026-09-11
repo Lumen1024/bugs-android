@@ -36,6 +36,10 @@ android {
 }
 
 dependencies {
+    implementation(libs.koin.androidx.compose)
+//    implementation(libs.koin.androidx.compose.navigation)
+
+
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)
