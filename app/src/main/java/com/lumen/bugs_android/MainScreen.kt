@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 fun MainScreen(modifier: Modifier = Modifier) {
     Scaffold(modifier = modifier.fillMaxSize()) { innerPadding ->
         Box(modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            Text("Hello World", modifier.padding(innerPadding))
+            RegisterForm(modifier.padding(innerPadding))
         }
     }
 }
