@@ -39,6 +39,9 @@ dependencies {
     implementation(libs.koin.androidx.compose)
 //    implementation(libs.koin.androidx.compose.navigation)
 
+    implementation(libs.coil.compose)          // Compose
+    implementation(libs.coil.network.okhttp)    // загрузка по HTTP(S)
+
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
