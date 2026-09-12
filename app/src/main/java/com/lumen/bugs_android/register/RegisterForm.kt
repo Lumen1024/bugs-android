@@ -20,6 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.lumen.bugs_android.User
 import com.lumen.bugs_android.Zodiac
 
 @Composable
@@ -29,7 +30,13 @@ fun RegisterForm(modifier: Modifier = Modifier) {
     var course by remember { mutableIntStateOf(1) }
     var difficulty by remember { mutableStateOf("Лёгкая") }
     var birthDate by remember { mutableStateOf<Long?>(null) }
+    var user by remember { mutableStateOf<User?>(null) }
     val zodiac: Zodiac? by remember { derivedStateOf { birthDate?.let { Zodiac.fromDate(it) } } }
+
+    user?.let { registered ->
+        UserResult(registered, onBack = { user = null }, modifier = modifier)
+        return
+    }
 
     Column(
         modifier
@@ -43,7 +50,7 @@ fun RegisterForm(modifier: Modifier = Modifier) {
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             ZodiacImage(zodiac, Modifier.size(256.dp))
-            zodiac?.let { Text(zodiac!!.title, style = MaterialTheme.typography.titleMedium) }
+            zodiac?.let { Text(it.title, style = MaterialTheme.typography.titleMedium) }
         }
 
         OutlinedTextField(state = name, label = { Text("ФИО") }, modifier = Modifier.fillMaxWidth())
@@ -51,5 +58,6 @@ fun RegisterForm(modifier: Modifier = Modifier) {
         CourseSelect(value = course, onSelect = { course = it })
         DifficultySlider(value = difficulty, onSelect = { difficulty = it })
         BirthDatePicker(Modifier.fillMaxWidth(), value = birthDate, onSelect = { birthDate = it })
+        ConfirmButton(name.text.toString(), gender, course, difficulty, birthDate, zodiac, Modifier.fillMaxWidth()) { user = it }
     }
 }
