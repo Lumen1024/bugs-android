@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.input.rememberTextFieldState
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -22,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.lumen.bugs_android.User
 import com.lumen.bugs_android.Zodiac
+import kotlin.text.isNotBlank
 
 @Composable
 fun RegisterScreen(modifier: Modifier = Modifier) {
@@ -58,6 +60,13 @@ fun RegisterScreen(modifier: Modifier = Modifier) {
         CourseSelect(value = course, onSelect = { course = it })
         DifficultySlider(value = difficulty, onSelect = { difficulty = it })
         BirthDatePicker(Modifier.fillMaxWidth(), value = birthDate, onSelect = { birthDate = it })
-        ConfirmButton(name.text.toString(), gender, course, difficulty, birthDate, zodiac, Modifier.fillMaxWidth()) { user = it }
+
+        Button(
+            onClick = { user = User(name.text.toString(), gender, course, difficulty, birthDate, zodiac) },
+            enabled = name.text.toString().isNotBlank() && birthDate != null,
+            modifier = modifier,
+        ) {
+            Text("Подтвердить")
+        }
     }
 }
