@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -37,7 +38,8 @@ android {
 
 dependencies {
     implementation(libs.koin.androidx.compose)
-//    implementation(libs.koin.androidx.compose.navigation)
+    implementation(libs.koin.androidx.compose.navigation)
+    implementation(libs.androidx.navigation.compose)
 
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
