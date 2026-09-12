@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">bugs-android</string>
+
+    <string name="gender_male">Мужской</string>
+    <string name="gender_female">Женский</string>
+    <string name="gender_helicopter">Вертолет</string>
+
+    <string name="difficulty_easy">Лёгкая</string>
+    <string name="difficulty_medium">Средняя</string>
+    <string name="difficulty_hard">Высокая</string>
 </resources>
