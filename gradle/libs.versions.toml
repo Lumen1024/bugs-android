@@ -11,7 +11,7 @@ activityCompose = "1.13.0"
 kotlin = "2.4.20"
 composeBom = "2026.09.00"
 navigationCompose = "2.10.1"
-serialization = "2.0.21"
+serialization = "2.4.20"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
