@@ -31,14 +31,17 @@ fun RegisterScreen(modifier: Modifier = Modifier) {
     var gender by remember { mutableStateOf("Мужской") }
     var course by remember { mutableIntStateOf(1) }
     var difficulty by remember { mutableStateOf("Лёгкая") }
-    var birthDate by remember { mutableStateOf<Long?>(null) }
-    var user by remember { mutableStateOf<User?>(null) }
+    var birthDate: Long? by remember { mutableStateOf(null) }
     val zodiac: Zodiac? by remember { derivedStateOf { birthDate?.let { Zodiac.fromDate(it) } } }
-
-    user?.let { registered ->
-        UserResult(registered, onBack = { user = null }, modifier = modifier)
-        return
+    val user: User? by remember {
+        derivedStateOf {
+            if (birthDate != null && name.text.toString().isNotBlank())
+                User(name.text.toString(), gender, course, difficulty, birthDate, zodiac)
+            else
+                null
+        }
     }
+    var isInfoOpen by remember { mutableStateOf(false) }
 
     Column(
         modifier
@@ -55,18 +58,26 @@ fun RegisterScreen(modifier: Modifier = Modifier) {
             zodiac?.let { Text(it.title, style = MaterialTheme.typography.titleMedium) }
         }
 
-        OutlinedTextField(state = name, label = { Text("ФИО") }, modifier = Modifier.fillMaxWidth())
-        GenderMenu(Modifier.fillMaxWidth(), value = gender, onSelect = { gender = it })
-        CourseSelect(value = course, onSelect = { course = it })
-        DifficultySlider(value = difficulty, onSelect = { difficulty = it })
-        BirthDatePicker(Modifier.fillMaxWidth(), value = birthDate, onSelect = { birthDate = it })
+        if (!isInfoOpen) {
+            OutlinedTextField(
+                state = name,
+                label = { Text("ФИО") },
+                modifier = Modifier.fillMaxWidth()
+            )
+            GenderMenu(Modifier.fillMaxWidth(), value = gender, onSelect = { gender = it })
+            CourseSelect(value = course, onSelect = { course = it })
+            DifficultySlider(value = difficulty, onSelect = { difficulty = it })
+            BirthDatePicker(Modifier.fillMaxWidth(), value = birthDate, onSelect = { birthDate = it })
 
-        Button(
-            onClick = { user = User(name.text.toString(), gender, course, difficulty, birthDate, zodiac) },
-            enabled = name.text.toString().isNotBlank() && birthDate != null,
-            modifier = modifier,
-        ) {
-            Text("Подтвердить")
+            Button(
+                onClick = { isInfoOpen = true},
+                enabled = user != null,
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Text("Подтвердить")
+            }
+        } else {
+            UserInfoScreen(user!!, onBack = { isInfoOpen = false }, modifier = modifier)
         }
     }
 }

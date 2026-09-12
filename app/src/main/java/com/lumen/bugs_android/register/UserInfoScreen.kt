@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -21,7 +20,7 @@ import java.time.format.DateTimeFormatter
 private val DATE_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy")
 
 @Composable
-fun UserResult(
+fun UserInfoScreen(
     user: User,
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
@@ -32,7 +31,6 @@ fun UserResult(
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         Text("Пользователь зарегистрирован", style = MaterialTheme.typography.titleLarge)
-        ZodiacImage(user.zodiac, Modifier.size(160.dp))
         Text(user.toInfoText(), modifier = Modifier.fillMaxWidth())
         Button(onClick = onBack, modifier = Modifier.fillMaxWidth()) { Text("Назад") }
     }
@@ -44,5 +42,4 @@ private fun User.toInfoText(): String = """
     Курс: $course
     Сложность: $difficulty
     Дата рождения: ${birthDate?.let { Instant.ofEpochMilli(it).atZone(ZoneOffset.UTC).format(DATE_FORMATTER) } ?: "—"}
-    Знак зодиака: ${zodiac?.title ?: "—"}
 """.trimIndent()
