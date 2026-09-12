@@ -24,7 +24,7 @@ import com.lumen.bugs_android.User
 import com.lumen.bugs_android.Zodiac
 
 @Composable
-fun RegisterForm(modifier: Modifier = Modifier) {
+fun RegisterScreen(modifier: Modifier = Modifier) {
     val name = rememberTextFieldState("")
     var gender by remember { mutableStateOf("Мужской") }
     var course by remember { mutableIntStateOf(1) }
