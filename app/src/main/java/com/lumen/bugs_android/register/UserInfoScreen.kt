@@ -12,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.lumen.bugs_android.User
 import java.time.Instant
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
@@ -21,7 +20,7 @@ private val DATE_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy")
 
 @Composable
 fun UserInfoScreen(
-    user: User,
+    state: RegisterScreenState,
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -31,15 +30,15 @@ fun UserInfoScreen(
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         Text("Пользователь зарегистрирован", style = MaterialTheme.typography.titleLarge)
-        Text(user.toInfoText(), modifier = Modifier.fillMaxWidth())
+        Text(state.toInfoText(), modifier = Modifier.fillMaxWidth())
         Button(onClick = onBack, modifier = Modifier.fillMaxWidth()) { Text("Назад") }
     }
 }
 
-private fun User.toInfoText(): String = """
+private fun RegisterScreenState.toInfoText(): String = """
     ФИО: $name
     Пол: $gender
     Курс: $course
     Сложность: $difficulty
-    Дата рождения: ${birthDate?.let { Instant.ofEpochMilli(it).atZone(ZoneOffset.UTC).format(DATE_FORMATTER) } ?: "—"}
+    Дата рождения: ${date?.let { Instant.ofEpochMilli(it).atZone(ZoneOffset.UTC).format(DATE_FORMATTER) } ?: "—"}
 """.trimIndent()

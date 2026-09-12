@@ -7,13 +7,13 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.lumen.bugs_android.register.RegisterScreen
+import com.lumen.bugs_android.register.RegisterScreenRoot
 
 @Composable
 fun MainScreen(modifier: Modifier = Modifier) {
     Scaffold(modifier = modifier.fillMaxSize()) { innerPadding ->
         Box(modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            RegisterScreen(modifier.padding(innerPadding))
+            RegisterScreenRoot(modifier.padding(innerPadding))
         }
     }
 }
