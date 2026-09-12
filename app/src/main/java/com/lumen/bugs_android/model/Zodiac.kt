@@ -1,4 +1,4 @@
-package com.lumen.bugs_android
+package com.lumen.bugs_android.model
 
 import java.time.Instant
 import java.time.ZoneOffset
@@ -42,5 +42,3 @@ enum class Zodiac(val title: String, val link: String) {
         }
     }
 }
-
-

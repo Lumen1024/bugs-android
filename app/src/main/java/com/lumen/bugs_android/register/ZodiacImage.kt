@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import coil3.compose.SubcomposeAsyncImage
-import com.lumen.bugs_android.Zodiac
+import com.lumen.bugs_android.model.Zodiac
 
 @Composable
 fun ZodiacImage(zodiac: Zodiac?, modifier: Modifier = Modifier) {

@@ -1,7 +1,7 @@
 package com.lumen.bugs_android.register
 
 import androidx.lifecycle.ViewModel
-import com.lumen.bugs_android.Zodiac
+import com.lumen.bugs_android.model.Zodiac
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
