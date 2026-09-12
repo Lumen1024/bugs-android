@@ -20,6 +20,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.lumen.bugs_android.R
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneOffset
@@ -43,10 +45,10 @@ fun BirthDatePicker(
             value = value?.let { Instant.ofEpochMilli(it).atZone(ZoneOffset.UTC).format(DATE_FORMATTER) }.orEmpty(),
             onValueChange = {},
             readOnly = true,
-            label = { Text("Дата рождения") },
+            label = { Text(stringResource(R.string.date_birth_label)) },
             trailingIcon = {
                 IconButton(onClick = { isDialogOpen = true }) {
-                    Icon(Icons.Default.DateRange, contentDescription = "Выбрать дату")
+                    Icon(Icons.Default.DateRange, contentDescription = stringResource(R.string.date_pick))
                 }
             },
             modifier = Modifier.fillMaxWidth(),
@@ -63,9 +65,9 @@ fun BirthDatePicker(
         DatePickerDialog(
             onDismissRequest = { isDialogOpen = false },
             confirmButton = {
-                TextButton(onClick = { state.selectedDateMillis?.let(onSelect); isDialogOpen = false }) { Text("OK") }
+                TextButton(onClick = { state.selectedDateMillis?.let(onSelect); isDialogOpen = false }) { Text(stringResource(R.string.date_ok)) }
             },
-            dismissButton = { TextButton(onClick = { isDialogOpen = false }) { Text("Cancel") } },
+            dismissButton = { TextButton(onClick = { isDialogOpen = false }) { Text(stringResource(R.string.date_cancel)) } },
         ) { DatePicker(state = state) }
     }
 }

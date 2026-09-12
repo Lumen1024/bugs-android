@@ -11,6 +11,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.lumen.bugs_android.R
 
 @Composable
 fun CourseSelect(
@@ -22,7 +24,7 @@ fun CourseSelect(
     var expanded by remember { mutableStateOf(false) }
     Box(modifier) {
         Button(onClick = { expanded = !expanded }) {
-            Text("Курс: $value")
+            Text(stringResource(R.string.course_format, value))
         }
         DropdownMenu(
             expanded = expanded,

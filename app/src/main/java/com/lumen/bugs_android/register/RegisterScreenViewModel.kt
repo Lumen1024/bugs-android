@@ -1,6 +1,8 @@
 package com.lumen.bugs_android.register
 
 import androidx.lifecycle.ViewModel
+import com.lumen.bugs_android.model.Difficulty
+import com.lumen.bugs_android.model.Gender
 import com.lumen.bugs_android.model.Zodiac
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -8,9 +10,9 @@ import kotlinx.coroutines.flow.update
 
 data class RegisterScreenState(
     val name: String = "",
-    val gender: String = "Мужской",
+    val gender: Gender = Gender.Male,
     val course: Int = 1,
-    val difficulty: String = "Средняя",
+    val difficulty: Difficulty = Difficulty.Medium,
     val date: Long? = null,
     val zodiac: Zodiac? = null,
     val confirmButtonEnabled: Boolean = false,
@@ -19,15 +21,15 @@ data class RegisterScreenState(
 
 sealed class RegisterScreenAction {
     data class OnNameChange(val name: String) : RegisterScreenAction()
-    data class OnGenderChange(val gender: String) : RegisterScreenAction()
+    data class OnGenderChange(val gender: Gender) : RegisterScreenAction()
     data class OnCourseChange(val course: Int) : RegisterScreenAction()
-    data class OnDifficultyChange(val difficulty: String) : RegisterScreenAction()
-    data class OnDateChange(val date: Long): RegisterScreenAction()
+    data class OnDifficultyChange(val difficulty: Difficulty) : RegisterScreenAction()
+    data class OnDateChange(val date: Long) : RegisterScreenAction()
     data object OnConfirmButtonClick : RegisterScreenAction()
     data object OnInfoCloseButtonClick : RegisterScreenAction()
 }
 
-class RegisterScreenViewModel : ViewModel(){
+class RegisterScreenViewModel : ViewModel() {
     private val _state = MutableStateFlow(RegisterScreenState())
     val state = _state.asStateFlow()
 

@@ -1,11 +1,49 @@
 <resources>
     <string name="app_name">bugs-android</string>
 
+    <!-- Форма регистрации -->
+    <string name="register_name_label">ФИО</string>
+    <string name="register_confirm">Подтвердить</string>
+    <string name="difficulty_label">Уровень сложности</string>
+    <string name="course_format">Курс: %1$d</string>
+
+    <!-- Пол -->
     <string name="gender_male">Мужской</string>
     <string name="gender_female">Женский</string>
     <string name="gender_helicopter">Вертолет</string>
 
+    <!-- Уровень сложности -->
     <string name="difficulty_easy">Лёгкая</string>
     <string name="difficulty_medium">Средняя</string>
     <string name="difficulty_hard">Высокая</string>
+
+    <!-- Дата рождения -->
+    <string name="date_birth_label">Дата рождения</string>
+    <string name="date_pick">Выбрать дату</string>
+    <string name="date_ok">OK</string>
+    <string name="date_cancel">Cancel</string>
+
+    <!-- Экран результата -->
+    <string name="user_info_title">Пользователь зарегистрирован</string>
+    <string name="user_info_back">Назад</string>
+    <string name="info_name">ФИО: %1$s</string>
+    <string name="info_gender">Пол: %1$s</string>
+    <string name="info_course">Курс: %1$d</string>
+    <string name="info_difficulty">Сложность: %1$s</string>
+    <string name="info_birth_date">Дата рождения: %1$s</string>
+    <string name="value_none">—</string>
+
+    <!-- Знаки зодиака -->
+    <string name="zodiac_aries">Овен</string>
+    <string name="zodiac_taurus">Телец</string>
+    <string name="zodiac_gemini">Близнецы</string>
+    <string name="zodiac_cancer">Рак</string>
+    <string name="zodiac_leo">Лев</string>
+    <string name="zodiac_virgo">Дева</string>
+    <string name="zodiac_libra">Весы</string>
+    <string name="zodiac_scorpion">Скорпион</string>
+    <string name="zodiac_sagittarius">Стрелец</string>
+    <string name="zodiac_capricorn">Козерог</string>
+    <string name="zodiac_aquarius">Водолей</string>
+    <string name="zodiac_pisces">Рыбы</string>
 </resources>

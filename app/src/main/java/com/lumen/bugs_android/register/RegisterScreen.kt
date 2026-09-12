@@ -14,8 +14,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.lumen.bugs_android.R
 import org.koin.androidx.compose.koinViewModel
 
 
@@ -32,8 +34,8 @@ fun RegisterScreenRoot(
 fun RegisterScreen(
     state: RegisterScreenState,
     onAction: (RegisterScreenAction) -> Unit,
-    modifier: Modifier = Modifier)
-{
+    modifier: Modifier = Modifier
+) {
 
     Column(
         modifier
@@ -47,14 +49,16 @@ fun RegisterScreen(
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             ZodiacImage(state.zodiac, Modifier.size(256.dp))
-            state.zodiac?.let { Text(it.title, style = MaterialTheme.typography.titleMedium) }
+            state.zodiac?.let {
+                Text(stringResource(it.titleRes), style = MaterialTheme.typography.titleMedium)
+            }
         }
 
         if (!state.isInfoShow) {
             OutlinedTextField(
                 value = state.name,
                 onValueChange = { onAction(RegisterScreenAction.OnNameChange(it)) },
-                label = { Text("ФИО") },
+                label = { Text(stringResource(R.string.register_name_label)) },
                 modifier = Modifier.fillMaxWidth(),
             )
             GenderMenu(
@@ -73,7 +77,7 @@ fun RegisterScreen(
             BirthDatePicker(
                 Modifier.fillMaxWidth(),
                 value = state.date,
-                onSelect = { onAction(RegisterScreenAction.OnDateChange(it))}
+                onSelect = { onAction(RegisterScreenAction.OnDateChange(it)) }
             )
 
             Button(
@@ -81,7 +85,7 @@ fun RegisterScreen(
                 enabled = state.confirmButtonEnabled,
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                Text("Подтвердить")
+                Text(stringResource(R.string.register_confirm))
             }
         } else {
             UserInfoScreen(
