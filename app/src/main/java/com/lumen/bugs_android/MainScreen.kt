@@ -1,5 +1,6 @@
 package com.lumen.bugs_android
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -16,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -45,15 +47,15 @@ data object SettingsScreen
 
 data class NavigationBarRoutes(
     val route: Any,
-    val label: String,
+    @StringRes val labelRes: Int,
     val icon: ImageVector
 )
 
 val navigationBarRoutes = listOf(
-    NavigationBarRoutes(RegisterScreen, "Регистрация", Icons.Default.AccountCircle),
-    NavigationBarRoutes(RulesScreen, "Правила", Icons.Default.Info),
-    NavigationBarRoutes(AuthorsScreen, "Авторы", Icons.Default.Person),
-    NavigationBarRoutes(SettingsScreen, "Настройки", Icons.Default.Settings),
+    NavigationBarRoutes(RegisterScreen, R.string.tab_register, Icons.Default.AccountCircle),
+    NavigationBarRoutes(RulesScreen, R.string.tab_rules, Icons.Default.Info),
+    NavigationBarRoutes(AuthorsScreen, R.string.tab_authors, Icons.Default.Person),
+    NavigationBarRoutes(SettingsScreen, R.string.tab_settings, Icons.Default.Settings),
 )
 
 
@@ -82,8 +84,8 @@ fun MainScreen(modifier: Modifier = Modifier) {
                                 restoreState = true
                             }
                         },
-                        icon = { Icon(item.icon, contentDescription = item.label) },
-                        label = { Text(item.label) }
+                        icon = { Icon(item.icon, contentDescription = stringResource(item.labelRes)) },
+                        label = { Text(stringResource(item.labelRes)) }
                     )
                 }
             }

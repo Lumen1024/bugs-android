@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">bugs-android</string>
 
+    <!-- Нижняя навигация -->
+    <string name="tab_register">Регистрация</string>
+    <string name="tab_rules">Правила</string>
+    <string name="tab_authors">Авторы</string>
+    <string name="tab_settings">Настройки</string>
+
     <!-- Форма регистрации -->
     <string name="register_name_label">ФИО</string>
     <string name="register_confirm">Подтвердить</string>
