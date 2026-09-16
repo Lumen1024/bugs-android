@@ -13,23 +13,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.lumen.bugs_android.R
+import com.lumen.bugs_android.model.GameSettingsSpecs
 import org.koin.androidx.compose.koinViewModel
 import java.util.Locale
 import kotlin.math.roundToInt
-
-private val GAME_SPEED_RANGE = 0.5f..2.0f
-private const val GAME_SPEED_STEP = 0.1f
-private val GAME_SPEED_STEPS = sliderSteps(GAME_SPEED_RANGE, GAME_SPEED_STEP)
-
-private val MAX_BUGS_RANGE = 1f..50f
-private val MAX_BUGS_STEPS = sliderSteps(MAX_BUGS_RANGE)
-
-private val BONUS_INTERVAL_RANGE = 1f..30f
-private val BONUS_INTERVAL_STEPS = sliderSteps(BONUS_INTERVAL_RANGE)
-
-private val ROUND_DURATION_RANGE = 15f..300f
-private const val ROUND_DURATION_STEP = 5f
-private val ROUND_DURATION_STEPS = sliderSteps(ROUND_DURATION_RANGE, ROUND_DURATION_STEP)
 
 @Composable
 fun SettingsScreenRoot(
@@ -51,6 +38,8 @@ fun SettingsScreen(
     onAction: (SettingsScreenAction) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val settings = state.settings
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -60,35 +49,31 @@ fun SettingsScreen(
     ) {
         SettingSlider(
             label = stringResource(R.string.setting_game_speed),
-            valueText = String.format(Locale.US, "%.1f×", state.gameSpeed),
-            value = state.gameSpeed,
+            valueText = String.format(Locale.US, "%.1f×", settings.gameSpeed),
+            value = settings.gameSpeed,
             onValueChange = { onAction(SettingsScreenAction.OnGameSpeedChange(it)) },
-            valueRange = GAME_SPEED_RANGE,
-            steps = GAME_SPEED_STEPS,
+            spec = GameSettingsSpecs.gameSpeed,
         )
         SettingSlider(
             label = stringResource(R.string.setting_max_bugs),
-            valueText = String.format(Locale.US, "%d шт", state.maxBugsCount),
-            value = state.maxBugsCount.toFloat(),
+            valueText = String.format(Locale.US, "%d шт", settings.maxBugsCount),
+            value = settings.maxBugsCount.toFloat(),
             onValueChange = { onAction(SettingsScreenAction.OnMaxBugsCountChange(it.roundToInt())) },
-            valueRange = MAX_BUGS_RANGE,
-            steps = MAX_BUGS_STEPS,
+            spec = GameSettingsSpecs.maxBugsCount,
         )
         SettingSlider(
             label = stringResource(R.string.setting_bonus_interval),
-            valueText = String.format(Locale.US, "%d с", state.bonusAppearanceInterval),
-            value = state.bonusAppearanceInterval.toFloat(),
+            valueText = String.format(Locale.US, "%d с", settings.bonusIntervalSeconds),
+            value = settings.bonusIntervalSeconds.toFloat(),
             onValueChange = { onAction(SettingsScreenAction.OnBonusIntervalChange(it.roundToInt())) },
-            valueRange = BONUS_INTERVAL_RANGE,
-            steps = BONUS_INTERVAL_STEPS,
+            spec = GameSettingsSpecs.bonusIntervalSeconds,
         )
         SettingSlider(
             label = stringResource(R.string.setting_round_duration),
-            valueText = String.format(Locale.US, "%d с", state.roundDurationSeconds),
-            value = state.roundDurationSeconds.toFloat(),
+            valueText = String.format(Locale.US, "%d с", settings.roundDurationSeconds),
+            value = settings.roundDurationSeconds.toFloat(),
             onValueChange = { onAction(SettingsScreenAction.OnRoundDurationChange(it.roundToInt())) },
-            valueRange = ROUND_DURATION_RANGE,
-            steps = ROUND_DURATION_STEPS,
+            spec = GameSettingsSpecs.roundDurationSeconds,
         )
     }
 }

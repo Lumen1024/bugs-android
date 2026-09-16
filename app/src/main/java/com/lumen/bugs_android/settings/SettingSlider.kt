@@ -10,10 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import kotlin.math.roundToInt
-
-fun sliderSteps(range: ClosedFloatingPointRange<Float>, step: Float = 1f): Int =
-    ((range.endInclusive - range.start) / step).roundToInt() - 1
+import com.lumen.bugs_android.model.GameSettingSpec
 
 @Composable
 fun SettingSlider(
@@ -21,8 +18,7 @@ fun SettingSlider(
     valueText: String,
     value: Float,
     onValueChange: (Float) -> Unit,
-    valueRange: ClosedFloatingPointRange<Float>,
-    steps: Int,
+    spec: GameSettingSpec,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
@@ -41,8 +37,8 @@ fun SettingSlider(
         Slider(
             value = value,
             onValueChange = onValueChange,
-            valueRange = valueRange,
-            steps = steps,
+            valueRange = spec.range,
+            steps = spec.valueCount - 2,
         )
     }
 }
