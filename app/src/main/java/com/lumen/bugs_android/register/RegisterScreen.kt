@@ -48,7 +48,7 @@ fun RegisterScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            ZodiacImage(state.zodiac, Modifier.size(256.dp))
+            ZodiacImage(state.zodiac, Modifier.size(200.dp))
             state.zodiac?.let {
                 Text(stringResource(it.titleRes), style = MaterialTheme.typography.titleMedium)
             }
