@@ -15,9 +15,11 @@ data class RegisterScreenState(
     val difficulty: Difficulty = Difficulty.Medium,
     val date: Long? = null,
     val zodiac: Zodiac? = null,
-    val confirmButtonEnabled: Boolean = false,
     val isInfoShow: Boolean = false
-)
+) {
+    val confirmButtonEnabled: Boolean
+        get() = name.isNotBlank() && date != null
+}
 
 sealed class RegisterScreenAction {
     data class OnNameChange(val name: String) : RegisterScreenAction()
@@ -35,23 +37,14 @@ class RegisterScreenViewModel : ViewModel() {
 
     fun onAction(action: RegisterScreenAction) {
         when (action) {
-            is RegisterScreenAction.OnNameChange -> {
-                _state.update { it.copy(name = action.name) }
-                updateConfirmButtonState()
-            }
+            is RegisterScreenAction.OnNameChange -> _state.update { it.copy(name = action.name) }
             is RegisterScreenAction.OnGenderChange -> _state.update { it.copy(gender = action.gender) }
             is RegisterScreenAction.OnCourseChange -> _state.update { it.copy(course = action.course) }
-            is RegisterScreenAction.OnDateChange -> {
+            is RegisterScreenAction.OnDateChange ->
                 _state.update { it.copy(date = action.date, zodiac = Zodiac.fromDate(action.date)) }
-                updateConfirmButtonState()
-            }
             is RegisterScreenAction.OnDifficultyChange -> _state.update { it.copy(difficulty = action.difficulty) }
             RegisterScreenAction.OnConfirmButtonClick -> _state.update { it.copy(isInfoShow = true) }
             RegisterScreenAction.OnInfoCloseButtonClick -> _state.update { it.copy(isInfoShow = false) }
         }
-    }
-
-    private fun updateConfirmButtonState() {
-        _state.update { it.copy(confirmButtonEnabled = it.name.isNotBlank() && it.date != null) }
     }
 }

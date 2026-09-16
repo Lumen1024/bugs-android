@@ -2,7 +2,6 @@ package com.lumen.bugs_android.register
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
@@ -27,7 +26,7 @@ fun UserInfoScreen(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier.fillMaxSize().padding(16.dp),
+        modifier.fillMaxWidth().padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {

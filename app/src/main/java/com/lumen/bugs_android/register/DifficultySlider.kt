@@ -14,7 +14,7 @@ import kotlin.math.roundToInt
 fun DifficultySlider(
     modifier: Modifier = Modifier,
     levels: List<Difficulty> = Difficulty.entries,
-    value: Difficulty = Difficulty.Easy,
+    value: Difficulty = Difficulty.Medium,
     onSelect: (Difficulty) -> Unit = {},
 ) {
     Column(modifier) {
