@@ -2,8 +2,8 @@ package com.lumen.bugs_android.model
 
 import androidx.annotation.StringRes
 import com.lumen.bugs_android.R
-import java.time.Instant
-import java.time.ZoneOffset
+import com.lumen.bugs_android.util.toLocalDateUtc
+import java.time.MonthDay
 
 enum class Zodiac(@StringRes val titleRes: Int, val link: String) {
     Aries(R.string.zodiac_aries, "https://www.zodiack.ru/images/female/aries.png"),
@@ -20,28 +20,28 @@ enum class Zodiac(@StringRes val titleRes: Int, val link: String) {
     Pisces(R.string.zodiac_pisces, "https://www.zodiack.ru/images/female/pisces.png");
 
     companion object {
+        /** Первый день каждого знака, по возрастанию. Capricorn начинается 22 декабря. */
+        private val SIGN_START_DATES: List<Pair<MonthDay, Zodiac>> = listOf(
+            MonthDay.of(1, 20) to Aquarius,
+            MonthDay.of(2, 19) to Pisces,
+            MonthDay.of(3, 21) to Aries,
+            MonthDay.of(4, 20) to Taurus,
+            MonthDay.of(5, 21) to Gemini,
+            MonthDay.of(6, 21) to Cancer,
+            MonthDay.of(7, 23) to Leo,
+            MonthDay.of(8, 23) to Virgo,
+            MonthDay.of(9, 23) to Libra,
+            MonthDay.of(10, 23) to Scorpion,
+            MonthDay.of(11, 22) to Sagittarius,
+            MonthDay.of(12, 22) to Capricorn,
+        )
+
         fun fromDate(date: Long): Zodiac {
-            val localDate = Instant.ofEpochMilli(date)
-                .atZone(ZoneOffset.UTC)
-                .toLocalDate()
-
-            val month = localDate.monthValue
-            val day = localDate.dayOfMonth
-
-            return when (month) {
-                1 -> if (day < 20) Capricorn else Aquarius
-                2 -> if (day < 19) Aquarius else Pisces
-                3 -> if (day < 21) Pisces else Aries
-                4 -> if (day < 20) Aries else Taurus
-                5 -> if (day < 21) Taurus else Gemini
-                6 -> if (day < 21) Gemini else Cancer
-                7 -> if (day < 23) Cancer else Leo
-                8 -> if (day < 23) Leo else Virgo
-                9 -> if (day < 23) Virgo else Libra
-                10 -> if (day < 23) Libra else Scorpion
-                11 -> if (day < 22) Scorpion else Sagittarius
-                else -> if (day < 22) Sagittarius else Capricorn
-            }
+            val monthDay = MonthDay.from(toLocalDateUtc(date))
+            return SIGN_START_DATES
+                .lastOrNull { (startDate, _) -> monthDay >= startDate }
+                ?.second
+                ?: Capricorn
         }
     }
 }

@@ -22,12 +22,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.lumen.bugs_android.R
-import java.time.Instant
+import com.lumen.bugs_android.util.formatDateUtc
 import java.time.LocalDate
-import java.time.ZoneOffset
-import java.time.format.DateTimeFormatter
 
-private val DATE_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy")
 private val PastDates = object : SelectableDates {
     override fun isSelectableDate(utcTimeMillis: Long) = utcTimeMillis <= System.currentTimeMillis()
 }
@@ -42,7 +39,7 @@ fun BirthDatePicker(
 
     Box(modifier) {
         OutlinedTextField(
-            value = value?.let { Instant.ofEpochMilli(it).atZone(ZoneOffset.UTC).format(DATE_FORMATTER) }.orEmpty(),
+            value = value?.let(::formatDateUtc).orEmpty(),
             onValueChange = {},
             readOnly = true,
             label = { Text(stringResource(R.string.date_birth_label)) },

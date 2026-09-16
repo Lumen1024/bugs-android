@@ -13,11 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.lumen.bugs_android.R
-import java.time.Instant
-import java.time.ZoneOffset
-import java.time.format.DateTimeFormatter
-
-private val DATE_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+import com.lumen.bugs_android.util.formatDateUtc
 
 @Composable
 fun UserInfoScreen(
@@ -44,8 +40,5 @@ private fun RegisterScreenState.toInfoText(): String = listOf(
     stringResource(R.string.info_gender, stringResource(gender.labelRes)),
     stringResource(R.string.info_course, course),
     stringResource(R.string.info_difficulty, stringResource(difficulty.labelRes)),
-    stringResource(R.string.info_birth_date, date?.let(::formatDate) ?: stringResource(R.string.value_none)),
+    stringResource(R.string.info_birth_date, date?.let(::formatDateUtc) ?: stringResource(R.string.value_none)),
 ).joinToString("\n")
-
-private fun formatDate(millis: Long): String =
-    Instant.ofEpochMilli(millis).atZone(ZoneOffset.UTC).format(DATE_FORMATTER)
