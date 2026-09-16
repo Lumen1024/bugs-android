@@ -33,6 +33,12 @@
     <string name="info_birth_date">Дата рождения: %1$s</string>
     <string name="value_none">—</string>
 
+    <!-- Настройки игры -->
+    <string name="setting_game_speed">Скорость игры</string>
+    <string name="setting_max_bugs">Максимум тараканов на экране</string>
+    <string name="setting_bonus_interval">Интервал появления бонусов</string>
+    <string name="setting_round_duration">Длительность раунда</string>
+
     <!-- Знаки зодиака -->
     <string name="zodiac_aries">Овен</string>
     <string name="zodiac_taurus">Телец</string>

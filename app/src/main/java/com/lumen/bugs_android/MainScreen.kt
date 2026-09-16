@@ -26,6 +26,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.lumen.bugs_android.authors.AuthorsScreenRoot
 import com.lumen.bugs_android.register.RegisterScreenRoot
+import com.lumen.bugs_android.settings.SettingsScreenRoot
 import kotlinx.serialization.Serializable
 
 
@@ -100,11 +101,6 @@ fun MainScreen(modifier: Modifier = Modifier) {
             composable<SettingsScreen> { SettingsScreenRoot() }
         }
     }
-}
-
-@Composable
-fun SettingsScreenRoot() {
-    Text("Settings")
 }
 
 @Composable
