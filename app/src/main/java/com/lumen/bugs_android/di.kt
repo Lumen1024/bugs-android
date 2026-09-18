@@ -2,6 +2,7 @@ package com.lumen.bugs_android
 
 import com.lumen.bugs_android.data.PlayerRepository
 import com.lumen.bugs_android.data.SettingsRepository
+import com.lumen.bugs_android.game.GameViewModel
 import com.lumen.bugs_android.menu.MainMenuViewModel
 import com.lumen.bugs_android.register.RegisterScreenViewModel
 import com.lumen.bugs_android.settings.SettingsScreenViewModel
@@ -15,5 +16,6 @@ val appModule = module {
 
     viewModelOf(::RegisterScreenViewModel)
     viewModelOf(::MainMenuViewModel)
+    viewModelOf(::GameViewModel)
     viewModelOf(::SettingsScreenViewModel)
 }
