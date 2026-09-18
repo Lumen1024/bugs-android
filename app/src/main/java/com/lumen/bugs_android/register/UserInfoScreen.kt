@@ -18,7 +18,7 @@ import com.lumen.bugs_android.util.formatDateUtc
 @Composable
 fun UserInfoScreen(
     state: RegisterScreenState,
-    onBack: () -> Unit,
+    onContinue: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -28,8 +28,8 @@ fun UserInfoScreen(
     ) {
         Text(stringResource(R.string.user_info_title), style = MaterialTheme.typography.titleLarge)
         Text(state.toInfoText(), modifier = Modifier.fillMaxWidth())
-        Button(onClick = onBack, modifier = Modifier.fillMaxWidth()) {
-            Text(stringResource(R.string.user_info_back))
+        Button(onClick = onContinue, modifier = Modifier.fillMaxWidth()) {
+            Text(stringResource(R.string.user_info_continue))
         }
     }
 }

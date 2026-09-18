@@ -1,8 +1,10 @@
 package com.lumen.bugs_android.register
 
 import androidx.lifecycle.ViewModel
+import com.lumen.bugs_android.data.PlayerRepository
 import com.lumen.bugs_android.model.Difficulty
 import com.lumen.bugs_android.model.Gender
+import com.lumen.bugs_android.model.Player
 import com.lumen.bugs_android.model.Zodiac
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -28,10 +30,11 @@ sealed class RegisterScreenAction {
     data class OnDifficultyChange(val difficulty: Difficulty) : RegisterScreenAction()
     data class OnDateChange(val date: Long) : RegisterScreenAction()
     data object OnConfirmButtonClick : RegisterScreenAction()
-    data object OnInfoCloseButtonClick : RegisterScreenAction()
 }
 
-class RegisterScreenViewModel : ViewModel() {
+class RegisterScreenViewModel(
+    private val playerRepository: PlayerRepository,
+) : ViewModel() {
     private val _state = MutableStateFlow(RegisterScreenState())
     val state = _state.asStateFlow()
 
@@ -43,8 +46,20 @@ class RegisterScreenViewModel : ViewModel() {
             is RegisterScreenAction.OnDateChange ->
                 _state.update { it.copy(date = action.date, zodiac = Zodiac.fromDate(action.date)) }
             is RegisterScreenAction.OnDifficultyChange -> _state.update { it.copy(difficulty = action.difficulty) }
-            RegisterScreenAction.OnConfirmButtonClick -> _state.update { it.copy(isInfoShow = true) }
-            RegisterScreenAction.OnInfoCloseButtonClick -> _state.update { it.copy(isInfoShow = false) }
+            RegisterScreenAction.OnConfirmButtonClick -> {
+                val current = _state.value
+                playerRepository.save(
+                    Player(
+                        name = current.name,
+                        gender = current.gender,
+                        course = current.course,
+                        difficulty = current.difficulty,
+                        birthDate = current.date,
+                        zodiac = current.zodiac,
+                    )
+                )
+                _state.update { it.copy(isInfoShow = true) }
+            }
         }
     }
 }

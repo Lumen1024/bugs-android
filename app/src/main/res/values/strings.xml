@@ -43,7 +43,6 @@
 
     <!-- Экран результата -->
     <string name="user_info_title">Пользователь зарегистрирован</string>
-    <string name="user_info_back">Назад</string>
     <string name="user_info_continue">Продолжить</string>
     <string name="info_name">ФИО: %1$s</string>
     <string name="info_gender">Пол: %1$s</string>

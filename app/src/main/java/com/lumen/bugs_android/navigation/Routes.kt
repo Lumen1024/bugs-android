@@ -14,6 +14,12 @@ import kotlinx.serialization.Serializable
 data object RegisterRoute
 
 @Serializable
+data object MainMenuRoute
+
+@Serializable
+data object GameRoute
+
+@Serializable
 data object RulesRoute
 
 @Serializable

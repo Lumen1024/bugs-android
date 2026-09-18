@@ -24,17 +24,19 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun RegisterScreenRoot(
+    onContinue: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: RegisterScreenViewModel = koinViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
-    RegisterScreen(state, viewModel::onAction, modifier)
+    RegisterScreen(state, viewModel::onAction, onContinue, modifier)
 }
 
 @Composable
 fun RegisterScreen(
     state: RegisterScreenState,
     onAction: (RegisterScreenAction) -> Unit,
+    onContinue: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -48,7 +50,7 @@ fun RegisterScreen(
         if (state.isInfoShow) {
             UserInfoScreen(
                 state = state,
-                onBack = { onAction(RegisterScreenAction.OnInfoCloseButtonClick) },
+                onContinue = onContinue,
                 modifier = Modifier.fillMaxWidth()
             )
         } else {
