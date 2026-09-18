@@ -13,6 +13,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.lumen.bugs_android.R
+import com.lumen.bugs_android.model.GameSettings
 import com.lumen.bugs_android.model.GameSettingsSpecs
 import org.koin.androidx.compose.koinViewModel
 import java.util.Locale
@@ -23,10 +24,10 @@ fun SettingsScreenRoot(
     modifier: Modifier = Modifier,
     viewModel: SettingsScreenViewModel = koinViewModel(),
 ) {
-    val state by viewModel.state.collectAsStateWithLifecycle()
+    val settings by viewModel.state.collectAsStateWithLifecycle()
 
     SettingsScreen(
-        state = state,
+        settings = settings,
         onAction = viewModel::onAction,
         modifier = modifier,
     )
@@ -34,12 +35,10 @@ fun SettingsScreenRoot(
 
 @Composable
 fun SettingsScreen(
-    state: SettingsScreenState,
+    settings: GameSettings,
     onAction: (SettingsScreenAction) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val settings = state.settings
-
     Column(
         modifier = modifier
             .fillMaxSize()
