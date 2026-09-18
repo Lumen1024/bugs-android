@@ -43,6 +43,14 @@ fun GameScreen(
             modifier = Modifier.align(Alignment.TopCenter),
         )
 
+        if (state.status == GameStatus.Countdown) {
+            Text(
+                text = state.countdownSeconds.toString(),
+                style = MaterialTheme.typography.displayLarge,
+                modifier = Modifier.align(Alignment.Center),
+            )
+        }
+
         if (state.status == GameStatus.Finished) {
             Surface(
                 modifier = Modifier.align(Alignment.Center),
