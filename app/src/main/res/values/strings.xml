@@ -7,6 +7,18 @@
     <string name="tab_authors">Авторы</string>
     <string name="tab_settings">Настройки</string>
 
+    <!-- Главное меню -->
+    <string name="menu_title">Жуки</string>
+    <string name="menu_guest">Гость</string>
+    <string name="menu_play">Играть</string>
+    <string name="menu_rules">Правила</string>
+    <string name="menu_authors">Авторы</string>
+    <string name="menu_settings">Настройки</string>
+
+    <!-- Игра -->
+    <string name="game_placeholder">Игра в разработке</string>
+    <string name="game_back_to_menu">В меню</string>
+
     <!-- Форма регистрации -->
     <string name="register_name_label">ФИО</string>
     <string name="register_confirm">Подтвердить</string>
@@ -32,6 +44,7 @@
     <!-- Экран результата -->
     <string name="user_info_title">Пользователь зарегистрирован</string>
     <string name="user_info_back">Назад</string>
+    <string name="user_info_continue">Продолжить</string>
     <string name="info_name">ФИО: %1$s</string>
     <string name="info_gender">Пол: %1$s</string>
     <string name="info_course">Курс: %1$d</string>

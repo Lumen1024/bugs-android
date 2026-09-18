@@ -2,6 +2,7 @@ package com.lumen.bugs_android
 
 import com.lumen.bugs_android.data.PlayerRepository
 import com.lumen.bugs_android.data.SettingsRepository
+import com.lumen.bugs_android.menu.MainMenuViewModel
 import com.lumen.bugs_android.register.RegisterScreenViewModel
 import com.lumen.bugs_android.settings.SettingsScreenViewModel
 import org.koin.core.module.dsl.singleOf
@@ -13,5 +14,6 @@ val appModule = module {
     singleOf(::PlayerRepository)
 
     viewModelOf(::RegisterScreenViewModel)
+    viewModelOf(::MainMenuViewModel)
     viewModelOf(::SettingsScreenViewModel)
 }
