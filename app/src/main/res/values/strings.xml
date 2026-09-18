@@ -11,6 +11,8 @@
 
     <!-- Игра -->
     <string name="game_score">Очки: %1$d</string>
+    <string name="game_pause">Пауза</string>
+    <string name="game_resume">Продолжить</string>
     <string name="game_round_over">Раунд окончен</string>
     <string name="game_restart">Ещё раз</string>
     <string name="game_back_to_menu">В меню</string>
