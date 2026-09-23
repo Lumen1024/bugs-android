@@ -42,6 +42,11 @@ fun GameScreen(
     BackHandler(enabled = isRoundActive) { /* выход из игры только через паузу */ }
 
     Box(modifier = modifier.fillMaxSize()) {
+        GameField(
+            bugs = state.bugs,
+            modifier = Modifier.fillMaxSize(),
+        )
+
         GameHud(
             score = state.score,
             timeLeftSeconds = state.timeLeftSeconds,
