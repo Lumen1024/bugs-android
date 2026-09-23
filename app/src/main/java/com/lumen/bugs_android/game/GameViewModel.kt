@@ -104,7 +104,12 @@ class GameViewModel(
             val dt = FRAME_DELAY_MS / 1000f
             while (true) {
                 delay(FRAME_DELAY_MS)
-                _state.update { state -> state.copy(bugs = state.bugs.map { it.advance(dt) }) }
+                val gameSpeed = settingsRepository.settings.value.gameSpeed
+                _state.update { state ->
+                    state.copy(
+                        bugs = state.bugs.map { it.advance(dt, gameSpeed * it.type.speedFactor) },
+                    )
+                }
             }
         }
     }

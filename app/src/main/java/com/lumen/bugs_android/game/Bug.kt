@@ -8,11 +8,11 @@ data class Bug(
     val position: Offset,
     val velocity: Offset,
 ) {
-    fun advance(dt: Float): Bug {
+    fun advance(dt: Float, speedMultiplier: Float): Bug {
         var vx = velocity.x
         var vy = velocity.y
-        var x = position.x + vx * dt
-        var y = position.y + vy * dt
+        var x = position.x + vx * dt * speedMultiplier
+        var y = position.y + vy * dt * speedMultiplier
         if (x < 0f || x > 1f) {
             vx = -vx
             x = x.coerceIn(0f, 1f)
