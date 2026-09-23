@@ -19,6 +19,7 @@ private const val COUNTDOWN_SECONDS = 3
 private const val FRAME_DELAY_MS = 16L
 private const val BUG_MIN_SPEED = 0.08f
 private const val BUG_MAX_SPEED = 0.20f
+private const val MISS_PENALTY = 1
 
 enum class GameStatus {
     Idle,
@@ -41,6 +42,8 @@ sealed class GameAction {
     data object OnPause : GameAction()
     data object OnResume : GameAction()
     data object OnRestart : GameAction()
+    data class OnBugHit(val bugId: Long) : GameAction()
+    data object OnMiss : GameAction()
 }
 
 class GameViewModel(
@@ -51,6 +54,7 @@ class GameViewModel(
 
     private var roundJob: Job? = null
     private var movementJob: Job? = null
+    private var nextBugId = 0L
 
     init {
         start()
@@ -62,6 +66,8 @@ class GameViewModel(
             GameAction.OnPause -> pause()
             GameAction.OnResume -> resume()
             GameAction.OnRestart -> start()
+            is GameAction.OnBugHit -> hitBug(action.bugId)
+            GameAction.OnMiss -> miss()
         }
     }
 
@@ -133,16 +139,32 @@ class GameViewModel(
         _state.update { it.copy(status = GameStatus.Finished) }
     }
 
-    private fun spawnBugs(): List<Bug> {
-        val count = settingsRepository.settings.value.maxBugsCount
-        return List(count) { index -> createBug(index.toLong()) }
+    private fun hitBug(id: Long) {
+        if (_state.value.status != GameStatus.Playing) return
+        _state.update { state ->
+            val hit = state.bugs.firstOrNull { it.id == id } ?: return@update state
+            state.copy(
+                score = state.score + hit.type.points,
+                bugs = state.bugs.filterNot { it.id == id } + createBug(),
+            )
+        }
     }
 
-    private fun createBug(id: Long): Bug {
+    private fun miss() {
+        if (_state.value.status != GameStatus.Playing) return
+        _state.update { it.copy(score = (it.score - MISS_PENALTY).coerceAtLeast(0)) }
+    }
+
+    private fun spawnBugs(): List<Bug> {
+        val count = settingsRepository.settings.value.maxBugsCount
+        return List(count) { createBug() }
+    }
+
+    private fun createBug(): Bug {
         val angle = Random.nextFloat() * 2f * PI.toFloat()
         val speed = BUG_MIN_SPEED + Random.nextFloat() * (BUG_MAX_SPEED - BUG_MIN_SPEED)
         return Bug(
-            id = id,
+            id = nextBugId++,
             type = BugType.entries.random(),
             position = Offset(Random.nextFloat(), Random.nextFloat()),
             velocity = Offset(cos(angle) * speed, sin(angle) * speed),

@@ -44,6 +44,9 @@ fun GameScreen(
     Box(modifier = modifier.fillMaxSize()) {
         GameField(
             bugs = state.bugs,
+            enabled = state.status == GameStatus.Playing,
+            onBugHit = { onAction(GameAction.OnBugHit(it)) },
+            onMiss = { onAction(GameAction.OnMiss) },
             modifier = Modifier.fillMaxSize(),
         )
 
