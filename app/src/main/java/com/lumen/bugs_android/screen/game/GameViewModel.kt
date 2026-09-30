@@ -36,7 +36,13 @@ data class GameState(
     val timeLeftSeconds: Int = 0,
     val countdownSeconds: Int = 0,
     val bugs: List<Bug> = emptyList(),
-)
+) {
+    val isCountdown: Boolean get() = status == GameStatus.Countdown
+    val isPlaying: Boolean get() = status == GameStatus.Playing
+    val isPaused: Boolean get() = status == GameStatus.Paused
+    val isFinished: Boolean get() = status == GameStatus.Finished
+    val isRoundActive: Boolean get() = isCountdown || isPlaying
+}
 
 sealed class GameAction {
     data object OnStart : GameAction()
