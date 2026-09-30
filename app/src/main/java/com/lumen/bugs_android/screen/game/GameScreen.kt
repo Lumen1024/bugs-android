@@ -28,7 +28,7 @@ fun GameScreen(
     onExit: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    BackHandler(enabled = state.isRoundActive) { onAction(GameAction.OnPause) }
+    BackHandler(enabled = state.isPlaying) { onAction(GameAction.OnPause) }
 
     Column(modifier = modifier.fillMaxSize()) {
         if (!state.isIdle) {

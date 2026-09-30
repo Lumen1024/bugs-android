@@ -16,7 +16,6 @@ import kotlin.math.sin
 import kotlin.random.Random
 import kotlin.time.Duration.Companion.milliseconds
 
-private const val COUNTDOWN_SECONDS = 3
 private const val FRAME_DELAY_MS = 16L
 private const val BUG_MIN_SPEED = 0.08f
 private const val BUG_MAX_SPEED = 0.20f
@@ -24,7 +23,6 @@ private const val MISS_PENALTY = 1
 
 enum class GameStatus {
     Idle,
-    Countdown,
     Playing,
     Paused,
     Finished,
@@ -34,15 +32,12 @@ data class GameState(
     val status: GameStatus = GameStatus.Idle,
     val score: Int = 0,
     val timeLeftSeconds: Int = 0,
-    val countdownSeconds: Int = 0,
     val bugs: List<Bug> = emptyList(),
 ) {
     val isIdle: Boolean get() = status == GameStatus.Idle
-    val isCountdown: Boolean get() = status == GameStatus.Countdown
     val isPlaying: Boolean get() = status == GameStatus.Playing
     val isPaused: Boolean get() = status == GameStatus.Paused
     val isFinished: Boolean get() = status == GameStatus.Finished
-    val isRoundActive: Boolean get() = isCountdown || isPlaying
 }
 
 sealed class GameAction {
@@ -78,22 +73,10 @@ class GameViewModel(
     private fun start() {
         cancelJobs()
         _state.value = GameState(
-            status = GameStatus.Countdown,
-            countdownSeconds = COUNTDOWN_SECONDS,
+            status = GameStatus.Playing,
             timeLeftSeconds = roundDuration(),
             bugs = spawnBugs(),
         )
-        roundJob = viewModelScope.launch {
-            while (_state.value.countdownSeconds > 0) {
-                delay(1_000.milliseconds)
-                _state.update { it.copy(countdownSeconds = (it.countdownSeconds - 1).coerceAtLeast(0)) }
-            }
-            beginRound()
-        }
-    }
-
-    private fun beginRound() {
-        _state.update { it.copy(status = GameStatus.Playing) }
         startRoundTimer()
         startMovement()
     }

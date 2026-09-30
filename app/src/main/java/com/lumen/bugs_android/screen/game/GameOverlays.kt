@@ -34,14 +34,6 @@ fun BoxScope.GameOverlays(
         }
     }
 
-    if (state.isCountdown) {
-        Text(
-            text = state.countdownSeconds.toString(),
-            style = MaterialTheme.typography.displayLarge,
-            modifier = Modifier.align(Alignment.Center),
-        )
-    }
-
     if (state.isPaused) {
         PauseOverlay(
             onResume = { onAction(GameAction.OnResume) },
