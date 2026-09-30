@@ -1,6 +1,7 @@
 package com.lumen.bugs_android.screen.register
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.lumen.bugs_android.data.PlayerRepository
 import com.lumen.bugs_android.model.Difficulty
 import com.lumen.bugs_android.model.Gender
@@ -9,6 +10,7 @@ import com.lumen.bugs_android.model.Zodiac
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 data class RegisterScreenState(
     val name: String = "",
@@ -46,19 +48,19 @@ class RegisterScreenViewModel(
             is RegisterScreenAction.OnDateChange ->
                 _state.update { it.copy(date = action.date, zodiac = Zodiac.fromDate(action.date)) }
             is RegisterScreenAction.OnDifficultyChange -> _state.update { it.copy(difficulty = action.difficulty) }
-            RegisterScreenAction.OnConfirmButtonClick -> {
+            RegisterScreenAction.OnConfirmButtonClick -> viewModelScope.launch {
                 val current = _state.value
-                playerRepository.save(
-                    Player(
-                        name = current.name,
-                        gender = current.gender,
-                        course = current.course,
-                        difficulty = current.difficulty,
-                        birthDate = current.date,
-                        zodiac = current.zodiac,
-                    )
+                val player = Player(
+                    name = current.name,
+                    gender = current.gender,
+                    course = current.course,
+                    difficulty = current.difficulty,
+                    birthDate = current.date,
+                    zodiac = current.zodiac,
                 )
-                _state.update { it.copy(isInfoShow = true) }
+                if (playerRepository.setPlayer(player).isSuccess) {
+                    _state.update { it.copy(isInfoShow = true) }
+                }
             }
         }
     }

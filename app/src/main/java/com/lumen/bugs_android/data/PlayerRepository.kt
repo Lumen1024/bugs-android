@@ -1,15 +1,12 @@
 package com.lumen.bugs_android.data
 
 import com.lumen.bugs_android.model.Player
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 
-class PlayerRepository {
-    private val _player = MutableStateFlow<Player?>(null)
-    val player: StateFlow<Player?> = _player.asStateFlow()
+interface PlayerRepository {
+    val player: StateFlow<Player?>
 
-    fun save(player: Player) {
-        _player.value = player
-    }
+    suspend fun setPlayer(player: Player): Result<Unit>
+
+    suspend fun clear(): Result<Unit>
 }
