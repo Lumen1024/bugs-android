@@ -45,7 +45,7 @@ fun BoxScope.GameOverlays(
 
     if (state.isFinished) {
         RoundOverOverlay(
-            score = state.score,
+            state = state,
             onRestart = { onAction(GameAction.OnRestart) },
             onExit = onExit,
             modifier = Modifier.align(Alignment.Center),
@@ -79,7 +79,7 @@ private fun PauseOverlay(
 
 @Composable
 private fun RoundOverOverlay(
-    score: Int,
+    state: GameState,
     onRestart: () -> Unit,
     onExit: () -> Unit,
     modifier: Modifier = Modifier,
@@ -90,8 +90,26 @@ private fun RoundOverOverlay(
             style = MaterialTheme.typography.titleLarge,
         )
         Text(
-            text = stringResource(R.string.game_score, score),
+            text = stringResource(R.string.game_score, state.score),
             style = MaterialTheme.typography.titleMedium,
+        )
+        BugType.entries.forEach { type ->
+            Text(
+                text = stringResource(
+                    R.string.game_caught_by_type,
+                    stringResource(type.labelRes),
+                    state.caught[type] ?: 0,
+                ),
+                style = MaterialTheme.typography.bodyMedium,
+            )
+        }
+        Text(
+            text = stringResource(R.string.game_misses, state.misses),
+            style = MaterialTheme.typography.bodyMedium,
+        )
+        Text(
+            text = stringResource(R.string.game_accuracy, state.accuracyPercent),
+            style = MaterialTheme.typography.bodyMedium,
         )
         Button(onClick = onRestart) {
             Text(stringResource(R.string.game_restart))

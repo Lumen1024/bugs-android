@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.math.PI
 import kotlin.math.cos
+import kotlin.math.roundToInt
 import kotlin.math.sin
 import kotlin.random.Random
 import kotlin.time.Duration.Companion.milliseconds
@@ -33,11 +34,17 @@ data class GameState(
     val score: Int = 0,
     val timeLeftSeconds: Int = 0,
     val bugs: List<Bug> = emptyList(),
+    val caught: Map<BugType, Int> = emptyMap(),
+    val misses: Int = 0,
 ) {
     val isIdle: Boolean get() = status == GameStatus.Idle
     val isPlaying: Boolean get() = status == GameStatus.Playing
     val isPaused: Boolean get() = status == GameStatus.Paused
     val isFinished: Boolean get() = status == GameStatus.Finished
+
+    val hits: Int get() = caught.values.sum()
+    val accuracyPercent: Int
+        get() = if (hits + misses == 0) 0 else (hits * 100f / (hits + misses)).roundToInt()
 }
 
 sealed class GameAction {
@@ -132,6 +139,7 @@ class GameViewModel(
             val hit = state.bugs.firstOrNull { it.id == id } ?: return@update state
             state.copy(
                 score = state.score + hit.type.points,
+                caught = state.caught + (hit.type to (state.caught[hit.type] ?: 0) + 1),
                 bugs = state.bugs.filterNot { it.id == id } + createBug(),
             )
         }
@@ -139,7 +147,12 @@ class GameViewModel(
 
     private fun miss() {
         if (_state.value.status != GameStatus.Playing) return
-        _state.update { it.copy(score = (it.score - MISS_PENALTY).coerceAtLeast(0)) }
+        _state.update {
+            it.copy(
+                score = (it.score - MISS_PENALTY).coerceAtLeast(0),
+                misses = it.misses + 1,
+            )
+        }
     }
 
     private fun spawnBugs(): List<Bug> {
