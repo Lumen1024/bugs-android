@@ -13,19 +13,17 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun GameScreenRoot(
-    onExit: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: GameViewModel = koinViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
-    GameScreen(state, viewModel::onAction, onExit, modifier)
+    GameScreen(state, viewModel::onAction, modifier)
 }
 
 @Composable
 fun GameScreen(
     state: GameState,
     onAction: (GameAction) -> Unit,
-    onExit: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     BackHandler(enabled = state.isPlaying) { onAction(GameAction.OnPause) }
@@ -54,7 +52,6 @@ fun GameScreen(
             GameOverlays(
                 state = state,
                 onAction = onAction,
-                onExit = onExit,
             )
         }
     }

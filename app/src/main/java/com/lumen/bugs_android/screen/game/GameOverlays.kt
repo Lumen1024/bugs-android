@@ -20,7 +20,6 @@ import com.lumen.bugs_android.R
 fun BoxScope.GameOverlays(
     state: GameState,
     onAction: (GameAction) -> Unit,
-    onExit: () -> Unit,
 ) {
     if (state.isIdle) {
         GameOverlay(modifier = Modifier.align(Alignment.Center)) {
@@ -38,7 +37,7 @@ fun BoxScope.GameOverlays(
         PauseOverlay(
             onResume = { onAction(GameAction.OnResume) },
             onRestart = { onAction(GameAction.OnRestart) },
-            onExit = onExit,
+            onExit = { onAction(GameAction.OnExit) },
             modifier = Modifier.align(Alignment.Center),
         )
     }
@@ -47,7 +46,7 @@ fun BoxScope.GameOverlays(
         RoundOverOverlay(
             state = state,
             onRestart = { onAction(GameAction.OnRestart) },
-            onExit = onExit,
+            onExit = { onAction(GameAction.OnExit) },
             modifier = Modifier.align(Alignment.Center),
         )
     }

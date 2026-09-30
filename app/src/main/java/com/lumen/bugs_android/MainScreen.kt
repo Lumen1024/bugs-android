@@ -49,9 +49,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
                 )
 
                 BottomTab.Authors -> AuthorsScreenRoot()
-                BottomTab.Game -> GameScreenRoot(
-                    onExit = { selectTab(BottomTab.Auth) },
-                )
+                BottomTab.Game -> GameScreenRoot()
 
                 BottomTab.Rules -> RulesScreenRoot()
                 BottomTab.Settings -> SettingsScreenRoot()

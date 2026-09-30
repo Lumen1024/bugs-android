@@ -52,6 +52,7 @@ sealed class GameAction {
     data object OnPause : GameAction()
     data object OnResume : GameAction()
     data object OnRestart : GameAction()
+    data object OnExit : GameAction()
     data class OnBugHit(val bugId: Long) : GameAction()
     data object OnMiss : GameAction()
 }
@@ -72,6 +73,7 @@ class GameViewModel(
             GameAction.OnPause -> pause()
             GameAction.OnResume -> resume()
             GameAction.OnRestart -> start()
+            GameAction.OnExit -> exit()
             is GameAction.OnBugHit -> hitBug(action.bugId)
             GameAction.OnMiss -> miss()
         }
@@ -131,6 +133,11 @@ class GameViewModel(
     private fun finishRound() {
         movementJob?.cancel()
         _state.update { it.copy(status = GameStatus.Finished) }
+    }
+
+    private fun exit() {
+        cancelJobs()
+        _state.value = GameState()
     }
 
     private fun hitBug(id: Long) {
