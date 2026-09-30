@@ -9,6 +9,13 @@
     <string name="menu_authors">Авторы</string>
     <string name="menu_settings">Настройки</string>
 
+    <!-- Нижняя навигация -->
+    <string name="nav_auth">Аккаунт</string>
+    <string name="nav_authors">Авторы</string>
+    <string name="nav_game">Игра</string>
+    <string name="nav_rules">Правила</string>
+    <string name="nav_settings">Настройки</string>
+
     <!-- Игра -->
     <string name="game_score">Очки: %1$d</string>
     <string name="game_pause">Пауза</string>

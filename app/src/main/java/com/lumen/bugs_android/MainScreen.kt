@@ -7,13 +7,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.lumen.bugs_android.navigation.AppBottomBar
 import com.lumen.bugs_android.navigation.MainNavHost
 
 @Composable
 fun MainScreen(modifier: Modifier = Modifier) {
     val navController: NavHostController = rememberNavController()
 
-    Scaffold(modifier = modifier.fillMaxSize()) { innerPadding ->
+    Scaffold(
+        modifier = modifier.fillMaxSize(),
+        bottomBar = { AppBottomBar(navController = navController) },
+    ) { innerPadding ->
         MainNavHost(
             navController = navController,
             modifier = Modifier
