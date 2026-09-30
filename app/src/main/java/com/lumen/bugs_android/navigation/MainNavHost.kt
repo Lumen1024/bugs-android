@@ -9,7 +9,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.lumen.bugs_android.screen.authors.AuthorsScreenRoot
 import com.lumen.bugs_android.screen.game.GameScreenRoot
-import com.lumen.bugs_android.screen.main_menu.MainMenuScreenRoot
 import com.lumen.bugs_android.screen.register.RegisterScreenRoot
 import com.lumen.bugs_android.screen.rules.RulesScreenRoot
 import com.lumen.bugs_android.screen.settings.SettingsScreenRoot
@@ -31,18 +30,10 @@ fun MainNavHost(
         composable<RegisterRoute> {
             RegisterScreenRoot(
                 onContinue = {
-                    navController.navigate(MainMenuRoute) {
+                    navController.navigate(GameRoute) {
                         popUpTo(RegisterRoute) { inclusive = true }
                     }
                 },
-            )
-        }
-        composable<MainMenuRoute> {
-            MainMenuScreenRoot(
-                onPlay = { navController.navigate(GameRoute) },
-                onRules = { navController.navigate(RulesRoute) },
-                onAuthors = { navController.navigate(AuthorsRoute) },
-                onSettings = { navController.navigate(SettingsRoute) },
             )
         }
         composable<GameRoute> {
