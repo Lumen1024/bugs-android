@@ -1,4 +1,4 @@
-package com.lumen.bugs_android.data
+package com.lumen.bugs_android.repository
 
 import com.lumen.bugs_android.model.Player
 import kotlinx.coroutines.flow.StateFlow

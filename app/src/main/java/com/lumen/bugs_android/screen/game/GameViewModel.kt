@@ -3,7 +3,7 @@ package com.lumen.bugs_android.screen.game
 import androidx.compose.ui.geometry.Offset
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.lumen.bugs_android.data.SettingsRepository
+import com.lumen.bugs_android.repository.SettingsRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow

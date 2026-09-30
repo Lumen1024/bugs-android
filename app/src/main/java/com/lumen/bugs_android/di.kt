@@ -1,9 +1,9 @@
 package com.lumen.bugs_android
 
-import com.lumen.bugs_android.data.InMemoryPlayerRepository
-import com.lumen.bugs_android.data.InMemorySettingsRepository
-import com.lumen.bugs_android.data.PlayerRepository
-import com.lumen.bugs_android.data.SettingsRepository
+import com.lumen.bugs_android.repository.InMemoryPlayerRepository
+import com.lumen.bugs_android.repository.InMemorySettingsRepository
+import com.lumen.bugs_android.repository.PlayerRepository
+import com.lumen.bugs_android.repository.SettingsRepository
 import com.lumen.bugs_android.screen.game.GameViewModel
 import com.lumen.bugs_android.screen.main_menu.MainMenuViewModel
 import com.lumen.bugs_android.screen.register.RegisterScreenViewModel

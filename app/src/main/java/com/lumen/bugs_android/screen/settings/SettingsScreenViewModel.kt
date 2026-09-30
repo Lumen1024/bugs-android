@@ -1,8 +1,8 @@
 package com.lumen.bugs_android.screen.settings
 
 import androidx.lifecycle.ViewModel
-import com.lumen.bugs_android.data.SettingsRepository
 import com.lumen.bugs_android.model.GameSettings
+import com.lumen.bugs_android.repository.SettingsRepository
 import kotlinx.coroutines.flow.StateFlow
 
 sealed class SettingsScreenAction {

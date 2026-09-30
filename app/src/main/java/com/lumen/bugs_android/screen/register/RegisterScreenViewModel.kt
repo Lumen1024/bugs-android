@@ -2,11 +2,11 @@ package com.lumen.bugs_android.screen.register
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.lumen.bugs_android.data.PlayerRepository
 import com.lumen.bugs_android.model.Difficulty
 import com.lumen.bugs_android.model.Gender
 import com.lumen.bugs_android.model.Player
 import com.lumen.bugs_android.model.Zodiac
+import com.lumen.bugs_android.repository.PlayerRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update

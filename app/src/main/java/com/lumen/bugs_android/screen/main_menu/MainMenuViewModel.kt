@@ -1,8 +1,8 @@
 package com.lumen.bugs_android.screen.main_menu
 
 import androidx.lifecycle.ViewModel
-import com.lumen.bugs_android.data.PlayerRepository
 import com.lumen.bugs_android.model.Player
+import com.lumen.bugs_android.repository.PlayerRepository
 import kotlinx.coroutines.flow.StateFlow
 
 class MainMenuViewModel(
