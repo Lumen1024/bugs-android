@@ -30,17 +30,6 @@ fun BoxScope.GameOverlays(
         )
     }
 
-    if (state.isRoundActive) {
-        Button(
-            onClick = { onAction(GameAction.OnPause) },
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(24.dp),
-        ) {
-            Text(stringResource(R.string.game_pause))
-        }
-    }
-
     if (state.isPaused) {
         PauseOverlay(
             onResume = { onAction(GameAction.OnResume) },

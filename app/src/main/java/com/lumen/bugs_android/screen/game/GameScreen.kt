@@ -27,7 +27,7 @@ fun GameScreen(
     onExit: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    BackHandler(enabled = state.isRoundActive) { /* выход из игры только через паузу */ }
+    BackHandler(enabled = state.isRoundActive) { onAction(GameAction.OnPause) }
 
     Box(modifier = modifier.fillMaxSize()) {
         GameField(
