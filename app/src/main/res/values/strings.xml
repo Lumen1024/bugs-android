@@ -9,6 +9,8 @@
     <string name="nav_settings">Настройки</string>
 
     <!-- Игра -->
+    <string name="game_title">Жуки</string>
+    <string name="game_start">Начать</string>
     <string name="game_score">Очки: %1$d</string>
     <string name="game_pause">Пауза</string>
     <string name="game_resume">Продолжить</string>

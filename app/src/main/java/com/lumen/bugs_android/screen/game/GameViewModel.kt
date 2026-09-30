@@ -37,6 +37,7 @@ data class GameState(
     val countdownSeconds: Int = 0,
     val bugs: List<Bug> = emptyList(),
 ) {
+    val isIdle: Boolean get() = status == GameStatus.Idle
     val isCountdown: Boolean get() = status == GameStatus.Countdown
     val isPlaying: Boolean get() = status == GameStatus.Playing
     val isPaused: Boolean get() = status == GameStatus.Paused
@@ -62,10 +63,6 @@ class GameViewModel(
     private var roundJob: Job? = null
     private var movementJob: Job? = null
     private var nextBugId = 0L
-
-    init {
-        start()
-    }
 
     fun onAction(action: GameAction) {
         when (action) {

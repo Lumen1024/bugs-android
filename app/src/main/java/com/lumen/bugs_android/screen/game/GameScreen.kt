@@ -31,10 +31,12 @@ fun GameScreen(
     BackHandler(enabled = state.isRoundActive) { onAction(GameAction.OnPause) }
 
     Column(modifier = modifier.fillMaxSize()) {
-        GameHud(
-            score = state.score,
-            timeLeftSeconds = state.timeLeftSeconds,
-        )
+        if (!state.isIdle) {
+            GameHud(
+                score = state.score,
+                timeLeftSeconds = state.timeLeftSeconds,
+            )
+        }
 
         Box(
             modifier = Modifier

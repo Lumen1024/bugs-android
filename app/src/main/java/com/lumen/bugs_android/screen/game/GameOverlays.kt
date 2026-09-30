@@ -22,6 +22,18 @@ fun BoxScope.GameOverlays(
     onAction: (GameAction) -> Unit,
     onExit: () -> Unit,
 ) {
+    if (state.isIdle) {
+        GameOverlay(modifier = Modifier.align(Alignment.Center)) {
+            Text(
+                text = stringResource(R.string.game_title),
+                style = MaterialTheme.typography.titleLarge,
+            )
+            Button(onClick = { onAction(GameAction.OnStart) }) {
+                Text(stringResource(R.string.game_start))
+            }
+        }
+    }
+
     if (state.isCountdown) {
         Text(
             text = state.countdownSeconds.toString(),
