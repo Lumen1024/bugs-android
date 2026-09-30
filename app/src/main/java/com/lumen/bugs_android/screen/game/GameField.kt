@@ -49,6 +49,7 @@ fun GameField(
             Icon(
                 imageVector = Icons.Default.BugReport,
                 contentDescription = null,
+                tint = bug.type.color,
                 modifier = Modifier
                     .offset(
                         x = movableWidth * bug.position.x,
