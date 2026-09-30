@@ -76,37 +76,65 @@ fun GameScreen(
         }
 
         if (state.status == GameStatus.Paused) {
-            GameOverlay(modifier = Modifier.align(Alignment.Center)) {
-                Text(
-                    text = stringResource(R.string.game_pause),
-                    style = MaterialTheme.typography.titleLarge,
-                )
-                Button(onClick = { onAction(GameAction.OnResume) }) {
-                    Text(stringResource(R.string.game_resume))
-                }
-                Button(onClick = onExit) {
-                    Text(stringResource(R.string.game_back_to_menu))
-                }
-            }
+            PauseOverlay(
+                onResume = { onAction(GameAction.OnResume) },
+                onExit = onExit,
+                modifier = Modifier.align(Alignment.Center),
+            )
         }
 
         if (state.status == GameStatus.Finished) {
-            GameOverlay(modifier = Modifier.align(Alignment.Center)) {
-                Text(
-                    text = stringResource(R.string.game_round_over),
-                    style = MaterialTheme.typography.titleLarge,
-                )
-                Text(
-                    text = stringResource(R.string.game_score, state.score),
-                    style = MaterialTheme.typography.titleMedium,
-                )
-                Button(onClick = { onAction(GameAction.OnRestart) }) {
-                    Text(stringResource(R.string.game_restart))
-                }
-                Button(onClick = onExit) {
-                    Text(stringResource(R.string.game_back_to_menu))
-                }
-            }
+            RoundOverOverlay(
+                score = state.score,
+                onRestart = { onAction(GameAction.OnRestart) },
+                onExit = onExit,
+                modifier = Modifier.align(Alignment.Center),
+            )
+        }
+    }
+}
+
+@Composable
+private fun PauseOverlay(
+    onResume: () -> Unit,
+    onExit: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    GameOverlay(modifier = modifier) {
+        Text(
+            text = stringResource(R.string.game_pause),
+            style = MaterialTheme.typography.titleLarge,
+        )
+        Button(onClick = onResume) {
+            Text(stringResource(R.string.game_resume))
+        }
+        Button(onClick = onExit) {
+            Text(stringResource(R.string.game_back_to_menu))
+        }
+    }
+}
+
+@Composable
+private fun RoundOverOverlay(
+    score: Int,
+    onRestart: () -> Unit,
+    onExit: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    GameOverlay(modifier = modifier) {
+        Text(
+            text = stringResource(R.string.game_round_over),
+            style = MaterialTheme.typography.titleLarge,
+        )
+        Text(
+            text = stringResource(R.string.game_score, score),
+            style = MaterialTheme.typography.titleMedium,
+        )
+        Button(onClick = onRestart) {
+            Text(stringResource(R.string.game_restart))
+        }
+        Button(onClick = onExit) {
+            Text(stringResource(R.string.game_back_to_menu))
         }
     }
 }
