@@ -45,6 +45,7 @@ fun BoxScope.GameOverlays(
     if (state.isPaused) {
         PauseOverlay(
             onResume = { onAction(GameAction.OnResume) },
+            onRestart = { onAction(GameAction.OnRestart) },
             onExit = onExit,
             modifier = Modifier.align(Alignment.Center),
         )
@@ -63,6 +64,7 @@ fun BoxScope.GameOverlays(
 @Composable
 private fun PauseOverlay(
     onResume: () -> Unit,
+    onRestart: () -> Unit,
     onExit: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -73,6 +75,9 @@ private fun PauseOverlay(
         )
         Button(onClick = onResume) {
             Text(stringResource(R.string.game_resume))
+        }
+        Button(onClick = onRestart) {
+            Text(stringResource(R.string.game_restart))
         }
         Button(onClick = onExit) {
             Text(stringResource(R.string.game_back_to_menu))
