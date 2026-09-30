@@ -1,4 +1,4 @@
-package com.lumen.bugs_android.game
+package com.lumen.bugs_android.screen.game
 
 import androidx.compose.ui.geometry.Offset
 import androidx.lifecycle.ViewModel
@@ -14,6 +14,7 @@ import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.random.Random
+import kotlin.time.Duration.Companion.milliseconds
 
 private const val COUNTDOWN_SECONDS = 3
 private const val FRAME_DELAY_MS = 16L
@@ -81,7 +82,7 @@ class GameViewModel(
         )
         roundJob = viewModelScope.launch {
             while (_state.value.countdownSeconds > 0) {
-                delay(1_000)
+                delay(1_000.milliseconds)
                 _state.update { it.copy(countdownSeconds = (it.countdownSeconds - 1).coerceAtLeast(0)) }
             }
             beginRound()
@@ -97,7 +98,7 @@ class GameViewModel(
     private fun startRoundTimer() {
         roundJob = viewModelScope.launch {
             while (_state.value.timeLeftSeconds > 0) {
-                delay(1_000)
+                delay(1_000.milliseconds)
                 _state.update { it.copy(timeLeftSeconds = (it.timeLeftSeconds - 1).coerceAtLeast(0)) }
             }
             finishRound()
@@ -109,7 +110,7 @@ class GameViewModel(
         movementJob = viewModelScope.launch {
             val dt = FRAME_DELAY_MS / 1000f
             while (true) {
-                delay(FRAME_DELAY_MS)
+                delay(FRAME_DELAY_MS.milliseconds)
                 val gameSpeed = settingsRepository.settings.value.gameSpeed
                 _state.update { state ->
                     state.copy(

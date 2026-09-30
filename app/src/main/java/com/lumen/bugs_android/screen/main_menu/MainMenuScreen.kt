@@ -1,4 +1,4 @@
-package com.lumen.bugs_android.menu
+package com.lumen.bugs_android.screen.main_menu
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

@@ -1,4 +1,4 @@
-package com.lumen.bugs_android.settings
+package com.lumen.bugs_android.screen.settings
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

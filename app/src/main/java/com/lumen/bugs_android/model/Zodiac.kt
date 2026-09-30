@@ -5,7 +5,7 @@ import com.lumen.bugs_android.R
 import com.lumen.bugs_android.util.toLocalDateUtc
 import java.time.MonthDay
 
-enum class Zodiac(@StringRes val titleRes: Int, val link: String) {
+enum class Zodiac(@param:StringRes val titleRes: Int, val link: String) {
     Aries(R.string.zodiac_aries, "https://www.zodiack.ru/images/female/aries.png"),
     Taurus(R.string.zodiac_taurus, "https://www.zodiack.ru/images/female/taurus.png"),
     Gemini(R.string.zodiac_gemini, "https://www.zodiack.ru/images/female/gemini.png"),
@@ -20,7 +20,6 @@ enum class Zodiac(@StringRes val titleRes: Int, val link: String) {
     Pisces(R.string.zodiac_pisces, "https://www.zodiack.ru/images/female/pisces.png");
 
     companion object {
-        /** Первый день каждого знака, по возрастанию. Capricorn начинается 22 декабря. */
         private val SIGN_START_DATES: List<Pair<MonthDay, Zodiac>> = listOf(
             MonthDay.of(1, 20) to Aquarius,
             MonthDay.of(2, 19) to Pisces,

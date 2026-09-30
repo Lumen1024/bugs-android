@@ -1,4 +1,4 @@
-package com.lumen.bugs_android.register
+package com.lumen.bugs_android.screen.register
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Slider

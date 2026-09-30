@@ -5,12 +5,12 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.lumen.bugs_android.authors.AuthorsScreenRoot
-import com.lumen.bugs_android.game.GameScreenRoot
-import com.lumen.bugs_android.menu.MainMenuScreenRoot
-import com.lumen.bugs_android.register.RegisterScreenRoot
-import com.lumen.bugs_android.rules.RulesScreenRoot
-import com.lumen.bugs_android.settings.SettingsScreenRoot
+import com.lumen.bugs_android.screen.authors.AuthorsScreenRoot
+import com.lumen.bugs_android.screen.game.GameScreenRoot
+import com.lumen.bugs_android.screen.main_menu.MainMenuScreenRoot
+import com.lumen.bugs_android.screen.register.RegisterScreenRoot
+import com.lumen.bugs_android.screen.rules.RulesScreenRoot
+import com.lumen.bugs_android.screen.settings.SettingsScreenRoot
 
 @Composable
 fun MainNavHost(

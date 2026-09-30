@@ -1,4 +1,4 @@
-package com.lumen.bugs_android.authors
+package com.lumen.bugs_android.screen.authors
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

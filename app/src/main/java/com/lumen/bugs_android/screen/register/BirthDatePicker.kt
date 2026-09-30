@@ -1,4 +1,4 @@
-package com.lumen.bugs_android.register
+package com.lumen.bugs_android.screen.register
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box

@@ -1,4 +1,4 @@
-package com.lumen.bugs_android.game
+package com.lumen.bugs_android.screen.game
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement

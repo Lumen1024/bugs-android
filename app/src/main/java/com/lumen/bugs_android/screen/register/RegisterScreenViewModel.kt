@@ -1,4 +1,4 @@
-package com.lumen.bugs_android.register
+package com.lumen.bugs_android.screen.register
 
 import androidx.lifecycle.ViewModel
 import com.lumen.bugs_android.data.PlayerRepository

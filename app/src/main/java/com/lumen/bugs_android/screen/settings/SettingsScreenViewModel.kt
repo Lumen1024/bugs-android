@@ -1,4 +1,4 @@
-package com.lumen.bugs_android.settings
+package com.lumen.bugs_android.screen.settings
 
 import androidx.lifecycle.ViewModel
 import com.lumen.bugs_android.data.SettingsRepository

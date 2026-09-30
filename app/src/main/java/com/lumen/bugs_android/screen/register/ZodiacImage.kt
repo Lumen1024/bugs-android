@@ -1,4 +1,4 @@
-package com.lumen.bugs_android.register
+package com.lumen.bugs_android.screen.register
 
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
