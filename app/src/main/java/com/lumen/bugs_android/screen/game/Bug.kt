@@ -13,11 +13,11 @@ data class Bug(
         var vy = velocity.y
         var x = position.x + vx * dt * speedMultiplier
         var y = position.y + vy * dt * speedMultiplier
-        if (x < 0f || x > 1f) {
+        if (x !in 0f..1f) {
             vx = -vx
             x = x.coerceIn(0f, 1f)
         }
-        if (y < 0f || y > 1f) {
+        if (y !in 0f..1f) {
             vy = -vy
             y = y.coerceIn(0f, 1f)
         }

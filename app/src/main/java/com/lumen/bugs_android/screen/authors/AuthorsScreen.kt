@@ -24,8 +24,14 @@ import coil3.compose.AsyncImage
 import com.lumen.bugs_android.model.Author
 
 private val authors = listOf(
-    Author("Прозоренко Константин", "https://i.pinimg.com/736x/2f/39/0a/2f390ad6e0778fa6137bd0185a2a0b1d.jpg"),
-    Author("Бекбауов Михаил", "https://i.pinimg.com/736x/7f/39/73/7f3973acdc81b35bb5fe5d16b078447a.jpg"),
+    Author(
+        "Прозоренко Константин",
+        "https://i.pinimg.com/736x/2f/39/0a/2f390ad6e0778fa6137bd0185a2a0b1d.jpg"
+    ),
+    Author(
+        "Бекбауов Михаил",
+        "https://i.pinimg.com/736x/7f/39/73/7f3973acdc81b35bb5fe5d16b078447a.jpg"
+    ),
 )
 
 @Composable
