@@ -8,6 +8,10 @@
     <string name="nav_rules">Правила</string>
     <string name="nav_settings">Настройки</string>
 
+    <!-- Профиль -->
+    <string name="profile_select_title">Выберите игрока</string>
+    <string name="profile_empty">Пока нет игроков</string>
+
     <!-- Игра -->
     <string name="game_title">Жуки</string>
     <string name="game_start">Начать</string>
