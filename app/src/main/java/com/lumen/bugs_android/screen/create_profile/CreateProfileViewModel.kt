@@ -40,6 +40,10 @@ class CreateProfileViewModel(
     private val _state = MutableStateFlow(CreateProfileState())
     val state = _state.asStateFlow()
 
+    fun reset() {
+        _state.value = CreateProfileState()
+    }
+
     fun onAction(action: CreateProfileAction) {
         when (action) {
             is CreateProfileAction.OnNameChange -> _state.update { it.copy(name = action.name) }

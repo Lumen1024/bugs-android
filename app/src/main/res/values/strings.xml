@@ -11,6 +11,7 @@
     <!-- Профиль -->
     <string name="profile_select_title">Выберите игрока</string>
     <string name="profile_empty">Пока нет игроков</string>
+    <string name="profile_create_new">Создать нового игрока</string>
 
     <!-- Игра -->
     <string name="game_title">Жуки</string>

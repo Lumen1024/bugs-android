@@ -13,11 +13,15 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -25,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.lumen.bugs_android.R
 import com.lumen.bugs_android.model.Profile
+import com.lumen.bugs_android.screen.create_profile.CreateProfileScreenRoot
 import com.lumen.bugs_android.screen.create_profile.ZodiacImage
 import org.koin.androidx.compose.koinViewModel
 
@@ -34,13 +39,28 @@ fun ProfileSelectScreenRoot(
     viewModel: ProfileViewModel = koinViewModel(),
 ) {
     val profiles by viewModel.profiles.collectAsStateWithLifecycle()
-    ProfileSelectScreen(profiles, viewModel::onProfileSelected, modifier)
+    var isCreateFormShown by rememberSaveable { mutableStateOf(false) }
+
+    if (isCreateFormShown || profiles.isEmpty()) {
+        CreateProfileScreenRoot(
+            onContinue = { isCreateFormShown = false },
+            modifier = modifier,
+        )
+    } else {
+        ProfileSelectScreen(
+            profiles = profiles,
+            onProfileSelected = viewModel::onProfileSelected,
+            onCreateNew = { isCreateFormShown = true },
+            modifier = modifier,
+        )
+    }
 }
 
 @Composable
 fun ProfileSelectScreen(
     profiles: List<Profile>,
     onProfileSelected: (Profile) -> Unit,
+    onCreateNew: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -58,10 +78,13 @@ fun ProfileSelectScreen(
             Text(
                 text = stringResource(R.string.profile_empty),
                 style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.weight(1f),
             )
         } else {
             LazyColumn(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
                 contentPadding = PaddingValues(vertical = 4.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
@@ -69,6 +92,13 @@ fun ProfileSelectScreen(
                     ProfileRow(profile = profile, onClick = { onProfileSelected(profile) })
                 }
             }
+        }
+
+        Button(
+            onClick = onCreateNew,
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Text(stringResource(R.string.profile_create_new))
         }
     }
 }
