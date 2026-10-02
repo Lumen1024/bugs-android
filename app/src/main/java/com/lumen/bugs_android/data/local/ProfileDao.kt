@@ -7,8 +7,8 @@ import androidx.room3.Query
 import androidx.room3.Upsert
 import kotlinx.coroutines.flow.Flow
 
-@Entity(tableName = "player")
-data class PlayerEntity(
+@Entity(tableName = "profile")
+data class ProfileEntity(
     @PrimaryKey val id: Int = SINGLE_ROW_ID,
     val name: String,
     val gender: String,
@@ -23,13 +23,13 @@ data class PlayerEntity(
 }
 
 @Dao
-interface PlayerDao {
-    @Query("SELECT * FROM player LIMIT 1")
-    fun observe(): Flow<PlayerEntity?>
+interface ProfileDao {
+    @Query("SELECT * FROM profile LIMIT 1")
+    fun observe(): Flow<ProfileEntity?>
 
     @Upsert
-    suspend fun upsert(player: PlayerEntity)
+    suspend fun upsert(profile: ProfileEntity)
 
-    @Query("DELETE FROM player")
+    @Query("DELETE FROM profile")
     suspend fun clear()
 }

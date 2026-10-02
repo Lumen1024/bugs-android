@@ -1,6 +1,6 @@
 package com.lumen.bugs_android.model
 
-data class Player(
+data class Profile(
     val name: String,
     val gender: Gender,
     val course: Int,

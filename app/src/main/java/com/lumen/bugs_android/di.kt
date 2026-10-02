@@ -3,8 +3,8 @@ package com.lumen.bugs_android
 import androidx.room3.Room
 import androidx.sqlite.driver.AndroidSQLiteDriver
 import com.lumen.bugs_android.data.local.BugsDatabase
-import com.lumen.bugs_android.repository.PlayerRepository
-import com.lumen.bugs_android.repository.RoomPlayerRepository
+import com.lumen.bugs_android.repository.ProfileRepository
+import com.lumen.bugs_android.repository.RoomProfileRepository
 import com.lumen.bugs_android.repository.RoomSettingsRepository
 import com.lumen.bugs_android.repository.SettingsRepository
 import com.lumen.bugs_android.screen.game.GameViewModel
@@ -28,13 +28,13 @@ val appModule = module {
             .setQueryCoroutineContext(Dispatchers.IO)
             .build()
     }
-    single { get<BugsDatabase>().playerDao() }
+    single { get<BugsDatabase>().profileDao() }
     single { get<BugsDatabase>().settingsDao() }
 
     single<CoroutineScope> { CoroutineScope(SupervisorJob() + Dispatchers.Default) }
 
     single<SettingsRepository> { RoomSettingsRepository(get(), get()) }
-    single<PlayerRepository> { RoomPlayerRepository(get(), get()) }
+    single<ProfileRepository> { RoomProfileRepository(get(), get()) }
 
     viewModelOf(::RegisterScreenViewModel)
     viewModelOf(::GameViewModel)

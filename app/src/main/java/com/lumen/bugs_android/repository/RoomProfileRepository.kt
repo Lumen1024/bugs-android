@@ -1,10 +1,10 @@
 package com.lumen.bugs_android.repository
 
-import com.lumen.bugs_android.data.local.PlayerDao
-import com.lumen.bugs_android.data.local.PlayerEntity
+import com.lumen.bugs_android.data.local.ProfileDao
+import com.lumen.bugs_android.data.local.ProfileEntity
 import com.lumen.bugs_android.model.Difficulty
 import com.lumen.bugs_android.model.Gender
-import com.lumen.bugs_android.model.Player
+import com.lumen.bugs_android.model.Profile
 import com.lumen.bugs_android.model.Zodiac
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
@@ -12,25 +12,25 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
-class RoomPlayerRepository(
-    private val playerDao: PlayerDao,
+class RoomProfileRepository(
+    private val profileDao: ProfileDao,
     scope: CoroutineScope,
-) : PlayerRepository {
-    override val player: StateFlow<Player?> = playerDao.observe()
+) : ProfileRepository {
+    override val profile: StateFlow<Profile?> = profileDao.observe()
         .map { it?.toModel() }
         .stateIn(scope, SharingStarted.Eagerly, null)
 
-    override suspend fun setPlayer(player: Player): Result<Unit> = runCatching {
-        require(player.name.isNotBlank()) { "Player name must not be blank" }
-        playerDao.upsert(player.toEntity())
+    override suspend fun setProfile(profile: Profile): Result<Unit> = runCatching {
+        require(profile.name.isNotBlank()) { "Profile name must not be blank" }
+        profileDao.upsert(profile.toEntity())
     }
 
     override suspend fun clear(): Result<Unit> = runCatching {
-        playerDao.clear()
+        profileDao.clear()
     }
 }
 
-private fun PlayerEntity.toModel(): Player = Player(
+private fun ProfileEntity.toModel(): Profile = Profile(
     name = name,
     gender = Gender.valueOf(gender),
     course = course,
@@ -39,7 +39,7 @@ private fun PlayerEntity.toModel(): Player = Player(
     zodiac = zodiac?.let(Zodiac::valueOf),
 )
 
-private fun Player.toEntity(): PlayerEntity = PlayerEntity(
+private fun Profile.toEntity(): ProfileEntity = ProfileEntity(
     name = name,
     gender = gender.name,
     course = course,

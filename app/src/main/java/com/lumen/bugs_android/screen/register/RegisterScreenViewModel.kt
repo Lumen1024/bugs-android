@@ -4,9 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lumen.bugs_android.model.Difficulty
 import com.lumen.bugs_android.model.Gender
-import com.lumen.bugs_android.model.Player
+import com.lumen.bugs_android.model.Profile
 import com.lumen.bugs_android.model.Zodiac
-import com.lumen.bugs_android.repository.PlayerRepository
+import com.lumen.bugs_android.repository.ProfileRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -35,7 +35,7 @@ sealed class RegisterScreenAction {
 }
 
 class RegisterScreenViewModel(
-    private val playerRepository: PlayerRepository,
+    private val profileRepository: ProfileRepository,
 ) : ViewModel() {
     private val _state = MutableStateFlow(RegisterScreenState())
     val state = _state.asStateFlow()
@@ -50,7 +50,7 @@ class RegisterScreenViewModel(
             is RegisterScreenAction.OnDifficultyChange -> _state.update { it.copy(difficulty = action.difficulty) }
             RegisterScreenAction.OnConfirmButtonClick -> viewModelScope.launch {
                 val current = _state.value
-                val player = Player(
+                val profile = Profile(
                     name = current.name,
                     gender = current.gender,
                     course = current.course,
@@ -58,7 +58,7 @@ class RegisterScreenViewModel(
                     birthDate = current.date,
                     zodiac = current.zodiac,
                 )
-                if (playerRepository.setPlayer(player).isSuccess) {
+                if (profileRepository.setProfile(profile).isSuccess) {
                     _state.update { it.copy(isInfoShow = true) }
                 }
             }
