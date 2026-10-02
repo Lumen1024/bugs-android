@@ -2,6 +2,7 @@ package com.lumen.bugs_android.util
 
 import java.time.Instant
 import java.time.LocalDate
+import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
@@ -11,3 +12,6 @@ fun toLocalDateUtc(millis: Long): LocalDate =
     Instant.ofEpochMilli(millis).atZone(ZoneOffset.UTC).toLocalDate()
 
 fun formatDateUtc(millis: Long): String = toLocalDateUtc(millis).format(DATE_FORMATTER)
+
+fun formatDateLocal(millis: Long): String =
+    Instant.ofEpochMilli(millis).atZone(ZoneId.systemDefault()).format(DATE_FORMATTER)

@@ -13,6 +13,11 @@
     <string name="profile_empty">Пока нет игроков</string>
     <string name="profile_create_new">Создать нового игрока</string>
 
+    <!-- Рекорды -->
+    <string name="records_title">Рекорды</string>
+    <string name="records_empty">Пока нет рекордов</string>
+    <string name="records_subtitle">%1$s · %2$s</string>
+
     <!-- Игра -->
     <string name="game_title">Жуки</string>
     <string name="game_start">Начать</string>
