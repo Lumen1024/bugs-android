@@ -49,6 +49,7 @@ val appModule = module {
 
     viewModelOf(::CreateProfileViewModel)
     viewModelOf(::ProfileViewModel)
+    viewModelOf(::MainViewModel)
     viewModelOf(::GameViewModel)
     viewModelOf(::SettingsScreenViewModel)
 }
