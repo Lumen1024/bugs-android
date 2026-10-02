@@ -16,21 +16,19 @@ class RoomProfileRepository(
     private val profileDao: ProfileDao,
     scope: CoroutineScope,
 ) : ProfileRepository {
-    override val profile: StateFlow<Profile?> = profileDao.observe()
-        .map { it?.toModel() }
-        .stateIn(scope, SharingStarted.Eagerly, null)
+    override val profiles: StateFlow<List<Profile>> = profileDao.observeAll()
+        .map { list -> list.map { it.toModel() } }
+        .stateIn(scope, SharingStarted.Eagerly, emptyList())
 
-    override suspend fun setProfile(profile: Profile): Result<Unit> = runCatching {
+    override suspend fun createProfile(profile: Profile): Result<Profile> = runCatching {
         require(profile.name.isNotBlank()) { "Profile name must not be blank" }
-        profileDao.upsert(profile.toEntity())
-    }
-
-    override suspend fun clear(): Result<Unit> = runCatching {
-        profileDao.clear()
+        val id = profileDao.insert(profile.toEntity())
+        profile.copy(id = id)
     }
 }
 
 private fun ProfileEntity.toModel(): Profile = Profile(
+    id = id,
     name = name,
     gender = Gender.valueOf(gender),
     course = course,
@@ -40,6 +38,7 @@ private fun ProfileEntity.toModel(): Profile = Profile(
 )
 
 private fun Profile.toEntity(): ProfileEntity = ProfileEntity(
+    id = id,
     name = name,
     gender = gender.name,
     course = course,

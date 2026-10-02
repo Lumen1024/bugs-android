@@ -58,7 +58,7 @@ class RegisterScreenViewModel(
                     birthDate = current.date,
                     zodiac = current.zodiac,
                 )
-                if (profileRepository.setProfile(profile).isSuccess) {
+                if (profileRepository.createProfile(profile).isSuccess) {
                     _state.update { it.copy(isInfoShow = true) }
                 }
             }
