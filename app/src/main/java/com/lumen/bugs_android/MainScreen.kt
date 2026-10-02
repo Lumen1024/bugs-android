@@ -12,7 +12,7 @@ import com.lumen.bugs_android.navigation.AppBottomBar
 import com.lumen.bugs_android.navigation.BottomTab
 import com.lumen.bugs_android.screen.authors.AuthorsScreenRoot
 import com.lumen.bugs_android.screen.game.GameScreenRoot
-import com.lumen.bugs_android.screen.register.RegisterScreenRoot
+import com.lumen.bugs_android.screen.create_profile.CreateProfileScreenRoot
 import com.lumen.bugs_android.screen.rules.RulesScreenRoot
 import com.lumen.bugs_android.screen.settings.SettingsScreenRoot
 import kotlinx.coroutines.launch
@@ -44,7 +44,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
                 .padding(innerPadding),
         ) { page ->
             when (BottomTab.entries[page]) {
-                BottomTab.Auth -> RegisterScreenRoot(
+                BottomTab.Auth -> CreateProfileScreenRoot(
                     onContinue = { selectTab(BottomTab.Game) },
                 )
 

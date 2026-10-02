@@ -8,7 +8,7 @@ import com.lumen.bugs_android.repository.RoomProfileRepository
 import com.lumen.bugs_android.repository.RoomSettingsRepository
 import com.lumen.bugs_android.repository.SettingsRepository
 import com.lumen.bugs_android.screen.game.GameViewModel
-import com.lumen.bugs_android.screen.register.RegisterScreenViewModel
+import com.lumen.bugs_android.screen.create_profile.CreateProfileViewModel
 import com.lumen.bugs_android.screen.settings.SettingsScreenViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -36,7 +36,7 @@ val appModule = module {
     single<SettingsRepository> { RoomSettingsRepository(get(), get()) }
     single<ProfileRepository> { RoomProfileRepository(get(), get()) }
 
-    viewModelOf(::RegisterScreenViewModel)
+    viewModelOf(::CreateProfileViewModel)
     viewModelOf(::GameViewModel)
     viewModelOf(::SettingsScreenViewModel)
 }

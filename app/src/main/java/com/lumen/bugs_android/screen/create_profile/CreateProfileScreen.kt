@@ -1,4 +1,4 @@
-package com.lumen.bugs_android.screen.register
+package com.lumen.bugs_android.screen.create_profile
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,19 +23,19 @@ import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
-fun RegisterScreenRoot(
+fun CreateProfileScreenRoot(
     onContinue: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: RegisterScreenViewModel = koinViewModel()
+    viewModel: CreateProfileViewModel = koinViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
-    RegisterScreen(state, viewModel::onAction, onContinue, modifier)
+    CreateProfileScreen(state, viewModel::onAction, onContinue, modifier)
 }
 
 @Composable
-fun RegisterScreen(
-    state: RegisterScreenState,
-    onAction: (RegisterScreenAction) -> Unit,
+fun CreateProfileScreen(
+    state: CreateProfileState,
+    onAction: (CreateProfileAction) -> Unit,
     onContinue: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -54,7 +54,7 @@ fun RegisterScreen(
                 modifier = Modifier.fillMaxWidth()
             )
         } else {
-            RegisterForm(
+            CreateProfileForm(
                 state = state,
                 onAction = onAction,
                 modifier = Modifier.fillMaxWidth()
@@ -78,9 +78,9 @@ private fun ZodiacHeader(zodiac: Zodiac?) {
 }
 
 @Composable
-private fun RegisterForm(
-    state: RegisterScreenState,
-    onAction: (RegisterScreenAction) -> Unit,
+private fun CreateProfileForm(
+    state: CreateProfileState,
+    onAction: (CreateProfileAction) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -89,31 +89,31 @@ private fun RegisterForm(
     ) {
         OutlinedTextField(
             value = state.name,
-            onValueChange = { onAction(RegisterScreenAction.OnNameChange(it)) },
+            onValueChange = { onAction(CreateProfileAction.OnNameChange(it)) },
             label = { Text(stringResource(R.string.register_name_label)) },
             modifier = Modifier.fillMaxWidth(),
         )
         GenderMenu(
             Modifier.fillMaxWidth(),
             value = state.gender,
-            onSelect = { onAction(RegisterScreenAction.OnGenderChange(it)) }
+            onSelect = { onAction(CreateProfileAction.OnGenderChange(it)) }
         )
         CourseSelect(
             value = state.course,
-            onSelect = { onAction(RegisterScreenAction.OnCourseChange(it)) }
+            onSelect = { onAction(CreateProfileAction.OnCourseChange(it)) }
         )
         DifficultySlider(
             value = state.difficulty,
-            onSelect = { onAction(RegisterScreenAction.OnDifficultyChange(it)) }
+            onSelect = { onAction(CreateProfileAction.OnDifficultyChange(it)) }
         )
         BirthDatePicker(
             Modifier.fillMaxWidth(),
             value = state.date,
-            onSelect = { onAction(RegisterScreenAction.OnDateChange(it)) }
+            onSelect = { onAction(CreateProfileAction.OnDateChange(it)) }
         )
 
         Button(
-            onClick = { onAction(RegisterScreenAction.OnConfirmButtonClick) },
+            onClick = { onAction(CreateProfileAction.OnConfirmButtonClick) },
             enabled = state.confirmButtonEnabled,
             modifier = Modifier.fillMaxWidth(),
         ) {

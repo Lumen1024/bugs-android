@@ -1,4 +1,4 @@
-package com.lumen.bugs_android.screen.register
+package com.lumen.bugs_android.screen.create_profile
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,7 +17,7 @@ import com.lumen.bugs_android.util.formatDateUtc
 
 @Composable
 fun UserInfoScreen(
-    state: RegisterScreenState,
+    state: CreateProfileState,
     onContinue: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -35,7 +35,7 @@ fun UserInfoScreen(
 }
 
 @Composable
-private fun RegisterScreenState.toInfoText(): String = listOf(
+private fun CreateProfileState.toInfoText(): String = listOf(
     stringResource(R.string.info_name, name),
     stringResource(R.string.info_gender, stringResource(gender.labelRes)),
     stringResource(R.string.info_course, course),

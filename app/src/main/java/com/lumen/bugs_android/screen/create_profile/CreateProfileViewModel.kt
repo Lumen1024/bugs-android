@@ -1,4 +1,4 @@
-package com.lumen.bugs_android.screen.register
+package com.lumen.bugs_android.screen.create_profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-data class RegisterScreenState(
+data class CreateProfileState(
     val name: String = "",
     val gender: Gender = Gender.Male,
     val course: Int = 1,
@@ -25,30 +25,30 @@ data class RegisterScreenState(
         get() = name.isNotBlank() && date != null
 }
 
-sealed class RegisterScreenAction {
-    data class OnNameChange(val name: String) : RegisterScreenAction()
-    data class OnGenderChange(val gender: Gender) : RegisterScreenAction()
-    data class OnCourseChange(val course: Int) : RegisterScreenAction()
-    data class OnDifficultyChange(val difficulty: Difficulty) : RegisterScreenAction()
-    data class OnDateChange(val date: Long) : RegisterScreenAction()
-    data object OnConfirmButtonClick : RegisterScreenAction()
+sealed class CreateProfileAction {
+    data class OnNameChange(val name: String) : CreateProfileAction()
+    data class OnGenderChange(val gender: Gender) : CreateProfileAction()
+    data class OnCourseChange(val course: Int) : CreateProfileAction()
+    data class OnDifficultyChange(val difficulty: Difficulty) : CreateProfileAction()
+    data class OnDateChange(val date: Long) : CreateProfileAction()
+    data object OnConfirmButtonClick : CreateProfileAction()
 }
 
-class RegisterScreenViewModel(
+class CreateProfileViewModel(
     private val profileRepository: ProfileRepository,
 ) : ViewModel() {
-    private val _state = MutableStateFlow(RegisterScreenState())
+    private val _state = MutableStateFlow(CreateProfileState())
     val state = _state.asStateFlow()
 
-    fun onAction(action: RegisterScreenAction) {
+    fun onAction(action: CreateProfileAction) {
         when (action) {
-            is RegisterScreenAction.OnNameChange -> _state.update { it.copy(name = action.name) }
-            is RegisterScreenAction.OnGenderChange -> _state.update { it.copy(gender = action.gender) }
-            is RegisterScreenAction.OnCourseChange -> _state.update { it.copy(course = action.course) }
-            is RegisterScreenAction.OnDateChange ->
+            is CreateProfileAction.OnNameChange -> _state.update { it.copy(name = action.name) }
+            is CreateProfileAction.OnGenderChange -> _state.update { it.copy(gender = action.gender) }
+            is CreateProfileAction.OnCourseChange -> _state.update { it.copy(course = action.course) }
+            is CreateProfileAction.OnDateChange ->
                 _state.update { it.copy(date = action.date, zodiac = Zodiac.fromDate(action.date)) }
-            is RegisterScreenAction.OnDifficultyChange -> _state.update { it.copy(difficulty = action.difficulty) }
-            RegisterScreenAction.OnConfirmButtonClick -> viewModelScope.launch {
+            is CreateProfileAction.OnDifficultyChange -> _state.update { it.copy(difficulty = action.difficulty) }
+            CreateProfileAction.OnConfirmButtonClick -> viewModelScope.launch {
                 val current = _state.value
                 val profile = Profile(
                     name = current.name,
