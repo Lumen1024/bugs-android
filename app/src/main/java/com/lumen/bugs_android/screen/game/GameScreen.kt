@@ -59,6 +59,7 @@ fun GameScreen(
 
             GameOverlays(
                 state = state,
+                playerName = currentProfile?.name,
                 onAction = onAction,
             )
         }

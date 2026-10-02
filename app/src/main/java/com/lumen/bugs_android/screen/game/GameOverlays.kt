@@ -19,6 +19,7 @@ import com.lumen.bugs_android.R
 @Composable
 fun BoxScope.GameOverlays(
     state: GameState,
+    playerName: String?,
     onAction: (GameAction) -> Unit,
 ) {
     if (state.isIdle) {
@@ -45,6 +46,7 @@ fun BoxScope.GameOverlays(
     if (state.isFinished) {
         RoundOverOverlay(
             state = state,
+            playerName = playerName,
             onRestart = { onAction(GameAction.OnRestart) },
             onExit = { onAction(GameAction.OnExit) },
             modifier = Modifier.align(Alignment.Center),
@@ -79,6 +81,7 @@ private fun PauseOverlay(
 @Composable
 private fun RoundOverOverlay(
     state: GameState,
+    playerName: String?,
     onRestart: () -> Unit,
     onExit: () -> Unit,
     modifier: Modifier = Modifier,
@@ -92,6 +95,12 @@ private fun RoundOverOverlay(
             text = stringResource(R.string.game_score, state.score),
             style = MaterialTheme.typography.titleMedium,
         )
+        if (state.resultSaved && playerName != null) {
+            Text(
+                text = stringResource(R.string.game_result_saved, playerName),
+                style = MaterialTheme.typography.bodyMedium,
+            )
+        }
         BugType.entries.forEach { type ->
             Text(
                 text = stringResource(

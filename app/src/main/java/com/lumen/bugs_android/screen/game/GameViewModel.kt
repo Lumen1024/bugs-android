@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.lumen.bugs_android.model.Profile
 import com.lumen.bugs_android.repository.CurrentProfileRepository
+import com.lumen.bugs_android.repository.GameResultRepository
 import com.lumen.bugs_android.repository.SettingsRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -39,6 +40,7 @@ data class GameState(
     val bugs: List<Bug> = emptyList(),
     val caught: Map<BugType, Int> = emptyMap(),
     val misses: Int = 0,
+    val resultSaved: Boolean = false,
 ) {
     val isIdle: Boolean get() = status == GameStatus.Idle
     val isPlaying: Boolean get() = status == GameStatus.Playing
@@ -64,6 +66,7 @@ sealed class GameAction {
 class GameViewModel(
     private val settingsRepository: SettingsRepository,
     private val currentProfileRepository: CurrentProfileRepository,
+    private val gameResultRepository: GameResultRepository,
 ) : ViewModel() {
     private val _state = MutableStateFlow(GameState())
     val state = _state.asStateFlow()
@@ -141,6 +144,16 @@ class GameViewModel(
     private fun finishRound() {
         movementJob?.cancel()
         _state.update { it.copy(status = GameStatus.Finished) }
+        saveResult()
+    }
+
+    private fun saveResult() {
+        val profileId = currentProfile.value?.id ?: return
+        val score = _state.value.score
+        viewModelScope.launch {
+            gameResultRepository.saveResult(profileId, score)
+                .onSuccess { _state.update { it.copy(resultSaved = true) } }
+        }
     }
 
     private fun exit() {

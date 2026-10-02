@@ -30,6 +30,7 @@
     <string name="game_pause">Пауза</string>
     <string name="game_resume">Продолжить</string>
     <string name="game_round_over">Раунд окончен</string>
+    <string name="game_result_saved">Результат сохранён: %1$s</string>
     <string name="game_restart">Ещё раз</string>
     <string name="game_back_to_menu">В меню</string>
 
