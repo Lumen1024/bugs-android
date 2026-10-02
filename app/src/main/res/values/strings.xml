@@ -2,7 +2,7 @@
     <string name="app_name">bugs-android</string>
 
     <!-- Нижняя навигация -->
-    <string name="nav_auth">Аккаунт</string>
+    <string name="nav_records">Рекорды</string>
     <string name="nav_authors">Авторы</string>
     <string name="nav_game">Игра</string>
     <string name="nav_rules">Правила</string>

@@ -2,8 +2,8 @@ package com.lumen.bugs_android.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.MenuBook
+import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material.icons.filled.Groups
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.SportsEsports
 import androidx.compose.material3.Icon
@@ -21,7 +21,7 @@ enum class BottomTab(
     val labelRes: Int,
     val icon: ImageVector,
 ) {
-    Auth(R.string.nav_auth, Icons.Filled.Person),
+    Records(R.string.nav_records, Icons.Filled.EmojiEvents),
     Authors(R.string.nav_authors, Icons.Filled.Groups),
     Game(R.string.nav_game, Icons.Filled.SportsEsports),
     Rules(R.string.nav_rules, Icons.AutoMirrored.Filled.MenuBook),
