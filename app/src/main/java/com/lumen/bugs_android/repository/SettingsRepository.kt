@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.StateFlow
 interface SettingsRepository {
     val settings: StateFlow<GameSettings>
 
-    fun update(transform: (GameSettings) -> GameSettings)
+    suspend fun update(transform: (GameSettings) -> GameSettings)
 }

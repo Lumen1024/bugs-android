@@ -1,9 +1,11 @@
 package com.lumen.bugs_android.screen.settings
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.lumen.bugs_android.model.GameSettings
 import com.lumen.bugs_android.repository.SettingsRepository
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 sealed class SettingsScreenAction {
     data class OnGameSpeedChange(val gameSpeed: Float) : SettingsScreenAction()
@@ -18,12 +20,14 @@ class SettingsScreenViewModel(
     val state: StateFlow<GameSettings> = settingsRepository.settings
 
     fun onAction(action: SettingsScreenAction) {
-        settingsRepository.update { settings ->
-            when (action) {
-                is SettingsScreenAction.OnGameSpeedChange -> settings.copy(gameSpeed = action.gameSpeed)
-                is SettingsScreenAction.OnMaxBugsCountChange -> settings.copy(maxBugsCount = action.maxBugsCount)
-                is SettingsScreenAction.OnBonusIntervalChange -> settings.copy(bonusIntervalSeconds = action.intervalSeconds)
-                is SettingsScreenAction.OnRoundDurationChange -> settings.copy(roundDurationSeconds = action.seconds)
+        viewModelScope.launch {
+            settingsRepository.update { settings ->
+                when (action) {
+                    is SettingsScreenAction.OnGameSpeedChange -> settings.copy(gameSpeed = action.gameSpeed)
+                    is SettingsScreenAction.OnMaxBugsCountChange -> settings.copy(maxBugsCount = action.maxBugsCount)
+                    is SettingsScreenAction.OnBonusIntervalChange -> settings.copy(bonusIntervalSeconds = action.intervalSeconds)
+                    is SettingsScreenAction.OnRoundDurationChange -> settings.copy(roundDurationSeconds = action.seconds)
+                }
             }
         }
     }

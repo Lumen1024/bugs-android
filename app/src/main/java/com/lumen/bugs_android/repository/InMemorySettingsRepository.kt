@@ -10,7 +10,7 @@ class InMemorySettingsRepository : SettingsRepository {
     private val _settings = MutableStateFlow(GameSettings())
     override val settings: StateFlow<GameSettings> = _settings.asStateFlow()
 
-    override fun update(transform: (GameSettings) -> GameSettings) {
+    override suspend fun update(transform: (GameSettings) -> GameSettings) {
         _settings.update(transform)
     }
 }
