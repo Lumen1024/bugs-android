@@ -27,7 +27,7 @@ class RoomProfileRepository(
     }
 }
 
-private fun ProfileEntity.toModel(): Profile = Profile(
+internal fun ProfileEntity.toModel(): Profile = Profile(
     id = id,
     name = name,
     gender = Gender.valueOf(gender),

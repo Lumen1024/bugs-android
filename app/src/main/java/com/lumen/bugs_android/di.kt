@@ -5,7 +5,9 @@ import androidx.sqlite.driver.AndroidSQLiteDriver
 import com.lumen.bugs_android.data.local.BugsDatabase
 import com.lumen.bugs_android.data.local.MIGRATION_1_2
 import com.lumen.bugs_android.repository.GameResultRepository
+import com.lumen.bugs_android.repository.CurrentProfileRepository
 import com.lumen.bugs_android.repository.ProfileRepository
+import com.lumen.bugs_android.repository.RoomCurrentProfileRepository
 import com.lumen.bugs_android.repository.RoomGameResultRepository
 import com.lumen.bugs_android.repository.RoomProfileRepository
 import com.lumen.bugs_android.repository.RoomSettingsRepository
@@ -40,6 +42,7 @@ val appModule = module {
 
     single<SettingsRepository> { RoomSettingsRepository(get(), get()) }
     single<ProfileRepository> { RoomProfileRepository(get(), get()) }
+    single<CurrentProfileRepository> { RoomCurrentProfileRepository(get(), get(), get()) }
     single { get<BugsDatabase>().gameResultDao() }
     single<GameResultRepository> { RoomGameResultRepository(get(), get()) }
 
