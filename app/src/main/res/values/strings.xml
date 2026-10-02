@@ -16,6 +16,8 @@
     <!-- Игра -->
     <string name="game_title">Жуки</string>
     <string name="game_start">Начать</string>
+    <string name="game_player_name">Игрок: %1$s</string>
+    <string name="game_switch_profile">Сменить игрока</string>
     <string name="game_score">Очки: %1$d</string>
     <string name="game_misses">Промахи: %1$d</string>
     <string name="game_accuracy">Точность: %1$d%%</string>

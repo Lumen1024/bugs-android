@@ -3,10 +3,13 @@ package com.lumen.bugs_android.screen.game
 import androidx.compose.ui.geometry.Offset
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.lumen.bugs_android.model.Profile
+import com.lumen.bugs_android.repository.CurrentProfileRepository
 import com.lumen.bugs_android.repository.SettingsRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -53,15 +56,19 @@ sealed class GameAction {
     data object OnResume : GameAction()
     data object OnRestart : GameAction()
     data object OnExit : GameAction()
+    data object OnSwitchProfile : GameAction()
     data class OnBugHit(val bugId: Long) : GameAction()
     data object OnMiss : GameAction()
 }
 
 class GameViewModel(
     private val settingsRepository: SettingsRepository,
+    private val currentProfileRepository: CurrentProfileRepository,
 ) : ViewModel() {
     private val _state = MutableStateFlow(GameState())
     val state = _state.asStateFlow()
+
+    val currentProfile: StateFlow<Profile?> = currentProfileRepository.currentProfile
 
     private var roundJob: Job? = null
     private var movementJob: Job? = null
@@ -74,6 +81,7 @@ class GameViewModel(
             GameAction.OnResume -> resume()
             GameAction.OnRestart -> start()
             GameAction.OnExit -> exit()
+            GameAction.OnSwitchProfile -> switchProfile()
             is GameAction.OnBugHit -> hitBug(action.bugId)
             GameAction.OnMiss -> miss()
         }
@@ -138,6 +146,10 @@ class GameViewModel(
     private fun exit() {
         cancelJobs()
         _state.value = GameState()
+    }
+
+    private fun switchProfile() {
+        viewModelScope.launch { currentProfileRepository.clear() }
     }
 
     private fun hitBug(id: Long) {

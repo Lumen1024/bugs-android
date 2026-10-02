@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.lumen.bugs_android.model.Profile
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -17,19 +18,26 @@ fun GameScreenRoot(
     viewModel: GameViewModel = koinViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
-    GameScreen(state, viewModel::onAction, modifier)
+    val currentProfile by viewModel.currentProfile.collectAsStateWithLifecycle()
+    GameScreen(state, currentProfile, viewModel::onAction, modifier)
 }
 
 @Composable
 fun GameScreen(
     state: GameState,
+    currentProfile: Profile?,
     onAction: (GameAction) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     BackHandler(enabled = state.isPlaying) { onAction(GameAction.OnPause) }
 
     Column(modifier = modifier.fillMaxSize()) {
-        if (!state.isIdle) {
+        if (state.isIdle) {
+            ProfileHeader(
+                name = currentProfile?.name,
+                onSwitchProfile = { onAction(GameAction.OnSwitchProfile) },
+            )
+        } else {
             GameHud(
                 score = state.score,
                 timeLeftSeconds = state.timeLeftSeconds,
