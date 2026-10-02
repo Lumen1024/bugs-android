@@ -5,7 +5,7 @@ import androidx.room3.RoomDatabase
 
 @Database(
     entities = [ProfileEntity::class, SettingsEntity::class, GameResultEntity::class, SessionEntity::class],
-    version = 2,
+    version = 3,
     exportSchema = false,
 )
 abstract class BugsDatabase : RoomDatabase() {

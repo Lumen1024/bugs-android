@@ -4,6 +4,7 @@ import androidx.room3.Room
 import androidx.sqlite.driver.AndroidSQLiteDriver
 import com.lumen.bugs_android.data.local.BugsDatabase
 import com.lumen.bugs_android.data.local.MIGRATION_1_2
+import com.lumen.bugs_android.data.local.MIGRATION_2_3
 import com.lumen.bugs_android.repository.GameResultRepository
 import com.lumen.bugs_android.repository.CurrentProfileRepository
 import com.lumen.bugs_android.repository.ProfileRepository
@@ -32,7 +33,7 @@ val appModule = module {
         )
             .setDriver(AndroidSQLiteDriver())
             .setQueryCoroutineContext(Dispatchers.IO)
-            .addMigrations(MIGRATION_1_2)
+            .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
             .build()
     }
     single { get<BugsDatabase>().profileDao() }

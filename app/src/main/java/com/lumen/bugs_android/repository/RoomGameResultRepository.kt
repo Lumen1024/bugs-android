@@ -20,11 +20,12 @@ class RoomGameResultRepository(
         .map { rows -> rows.map { it.toModel() } }
         .stateIn(scope, SharingStarted.Eagerly, emptyList())
 
-    override suspend fun saveResult(profileId: Long, score: Int): Result<Unit> = runCatching {
+    override suspend fun saveResult(profileId: Long, score: Int, difficulty: Difficulty): Result<Unit> = runCatching {
         gameResultDao.insert(
             GameResultEntity(
                 profileId = profileId,
                 score = score,
+                difficulty = difficulty.name,
                 finishedAt = System.currentTimeMillis(),
             ),
         )

@@ -148,10 +148,10 @@ class GameViewModel(
     }
 
     private fun saveResult() {
-        val profileId = currentProfile.value?.id ?: return
+        val profile = currentProfile.value ?: return
         val score = _state.value.score
         viewModelScope.launch {
-            gameResultRepository.saveResult(profileId, score)
+            gameResultRepository.saveResult(profile.id, score, profile.difficulty)
                 .onSuccess { _state.update { it.copy(resultSaved = true) } }
         }
     }

@@ -12,6 +12,7 @@ data class GameResultEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val profileId: Long,
     val score: Int,
+    val difficulty: String,
     val finishedAt: Long,
 )
 
@@ -29,7 +30,7 @@ interface GameResultDao {
     @Query(
         """
         SELECT r.id AS id, r.score AS score, r.finishedAt AS finishedAt,
-               p.name AS name, p.difficulty AS difficulty, p.zodiac AS zodiac
+               p.name AS name, r.difficulty AS difficulty, p.zodiac AS zodiac
         FROM game_result r
         JOIN profile p ON p.id = r.profileId
         ORDER BY r.score DESC
