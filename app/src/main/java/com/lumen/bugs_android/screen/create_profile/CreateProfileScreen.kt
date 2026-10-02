@@ -31,7 +31,15 @@ fun CreateProfileScreenRoot(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     LaunchedEffect(Unit) { viewModel.reset() }
-    CreateProfileScreen(state, viewModel::onAction, onContinue, modifier)
+    CreateProfileScreen(
+        state = state,
+        onAction = viewModel::onAction,
+        onContinue = {
+            viewModel.onAction(CreateProfileAction.OnContinueButtonClick)
+            onContinue()
+        },
+        modifier = modifier,
+    )
 }
 
 @Composable

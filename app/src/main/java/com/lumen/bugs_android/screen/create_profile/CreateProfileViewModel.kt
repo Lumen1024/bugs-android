@@ -6,6 +6,7 @@ import com.lumen.bugs_android.model.Difficulty
 import com.lumen.bugs_android.model.Gender
 import com.lumen.bugs_android.model.Profile
 import com.lumen.bugs_android.model.Zodiac
+import com.lumen.bugs_android.repository.CurrentProfileRepository
 import com.lumen.bugs_android.repository.ProfileRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -32,15 +33,20 @@ sealed class CreateProfileAction {
     data class OnDifficultyChange(val difficulty: Difficulty) : CreateProfileAction()
     data class OnDateChange(val date: Long) : CreateProfileAction()
     data object OnConfirmButtonClick : CreateProfileAction()
+    data object OnContinueButtonClick : CreateProfileAction()
 }
 
 class CreateProfileViewModel(
     private val profileRepository: ProfileRepository,
+    private val currentProfileRepository: CurrentProfileRepository,
 ) : ViewModel() {
     private val _state = MutableStateFlow(CreateProfileState())
     val state = _state.asStateFlow()
 
+    private var createdProfile: Profile? = null
+
     fun reset() {
+        createdProfile = null
         _state.value = CreateProfileState()
     }
 
@@ -62,9 +68,13 @@ class CreateProfileViewModel(
                     birthDate = current.date,
                     zodiac = current.zodiac,
                 )
-                if (profileRepository.createProfile(profile).isSuccess) {
+                profileRepository.createProfile(profile).onSuccess { created ->
+                    createdProfile = created
                     _state.update { it.copy(isInfoShow = true) }
                 }
+            }
+            CreateProfileAction.OnContinueButtonClick -> viewModelScope.launch {
+                createdProfile?.let { currentProfileRepository.selectProfile(it) }
             }
         }
     }
