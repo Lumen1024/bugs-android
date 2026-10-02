@@ -3,6 +3,7 @@ package com.lumen.bugs_android
 import androidx.room3.Room
 import androidx.sqlite.driver.AndroidSQLiteDriver
 import com.lumen.bugs_android.data.local.BugsDatabase
+import com.lumen.bugs_android.data.local.MIGRATION_1_2
 import com.lumen.bugs_android.repository.GameResultRepository
 import com.lumen.bugs_android.repository.ProfileRepository
 import com.lumen.bugs_android.repository.RoomGameResultRepository
@@ -28,10 +29,12 @@ val appModule = module {
         )
             .setDriver(AndroidSQLiteDriver())
             .setQueryCoroutineContext(Dispatchers.IO)
+            .addMigrations(MIGRATION_1_2)
             .build()
     }
     single { get<BugsDatabase>().profileDao() }
     single { get<BugsDatabase>().settingsDao() }
+    single { get<BugsDatabase>().sessionDao() }
 
     single<CoroutineScope> { CoroutineScope(SupervisorJob() + Dispatchers.Default) }
 

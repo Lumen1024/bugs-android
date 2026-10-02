@@ -4,8 +4,8 @@ import androidx.room3.Database
 import androidx.room3.RoomDatabase
 
 @Database(
-    entities = [ProfileEntity::class, SettingsEntity::class, GameResultEntity::class],
-    version = 1,
+    entities = [ProfileEntity::class, SettingsEntity::class, GameResultEntity::class, SessionEntity::class],
+    version = 2,
     exportSchema = false,
 )
 abstract class BugsDatabase : RoomDatabase() {
@@ -14,4 +14,6 @@ abstract class BugsDatabase : RoomDatabase() {
     abstract fun settingsDao(): SettingsDao
 
     abstract fun gameResultDao(): GameResultDao
+
+    abstract fun sessionDao(): SessionDao
 }
