@@ -2,6 +2,7 @@ package com.lumen.bugs_android
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Scaffold
@@ -29,7 +30,11 @@ fun MainScreen(
     val currentProfile by viewModel.currentProfile.collectAsStateWithLifecycle()
 
     if (currentProfile == null) {
-        ProfileSelectScreenRoot(modifier = modifier.fillMaxSize())
+        ProfileSelectScreenRoot(
+            modifier = modifier
+                .fillMaxSize()
+                .safeDrawingPadding(),
+        )
     } else {
         MainTabs(modifier = modifier)
     }
