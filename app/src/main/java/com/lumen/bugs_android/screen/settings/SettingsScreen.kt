@@ -48,29 +48,29 @@ fun SettingsScreen(
     ) {
         SettingSlider(
             label = stringResource(R.string.setting_game_speed),
-            valueText = String.format(Locale.US, "%.1f×", settings.gameSpeed),
             value = settings.gameSpeed,
+            valueText = { String.format(Locale.US, "%.1f×", it) },
             onValueChange = { onAction(SettingsScreenAction.OnGameSpeedChange(it)) },
             spec = GameSettingsSpecs.gameSpeed,
         )
         SettingSlider(
             label = stringResource(R.string.setting_max_bugs),
-            valueText = String.format(Locale.US, "%d шт", settings.maxBugsCount),
             value = settings.maxBugsCount.toFloat(),
+            valueText = { String.format(Locale.US, "%d шт", it.roundToInt()) },
             onValueChange = { onAction(SettingsScreenAction.OnMaxBugsCountChange(it.roundToInt())) },
             spec = GameSettingsSpecs.maxBugsCount,
         )
         SettingSlider(
             label = stringResource(R.string.setting_bonus_interval),
-            valueText = String.format(Locale.US, "%d с", settings.bonusIntervalSeconds),
             value = settings.bonusIntervalSeconds.toFloat(),
+            valueText = { String.format(Locale.US, "%d с", it.roundToInt()) },
             onValueChange = { onAction(SettingsScreenAction.OnBonusIntervalChange(it.roundToInt())) },
             spec = GameSettingsSpecs.bonusIntervalSeconds,
         )
         SettingSlider(
             label = stringResource(R.string.setting_round_duration),
-            valueText = String.format(Locale.US, "%d с", settings.roundDurationSeconds),
             value = settings.roundDurationSeconds.toFloat(),
+            valueText = { String.format(Locale.US, "%d с", it.roundToInt()) },
             onValueChange = { onAction(SettingsScreenAction.OnRoundDurationChange(it.roundToInt())) },
             spec = GameSettingsSpecs.roundDurationSeconds,
         )
